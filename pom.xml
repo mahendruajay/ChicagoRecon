@@ -35,6 +35,7 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <mainClass>hello.Application</mainClass>
     </properties>
 
     <build>
@@ -54,6 +55,17 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.3.2</version>
+                <configuration>
+                    <mainClass>${mainClass}</mainClass>
+                    
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 
