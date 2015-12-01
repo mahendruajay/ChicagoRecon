@@ -54,7 +54,7 @@ public class ApiController {
         DestinationDetails destinationDetails = new DestinationDetails();
         destinationDetails.setDestinationImages(imageService.getCityImages("Miami", Lists.newArrayList("beach"), 3));
 
-        CruiseSuggestion cruiseSuggestion = cruiseSuggestionService.getCruiseSuggestion("MIA", departureDate, returnDate);
+        CruiseSuggestion cruiseSuggestion = cruiseSuggestionService.getCruiseSuggestion("Miami", departureDate, returnDate);
 
         return new FlightSuggestion(BigDecimal.valueOf(100), "2016-01-01",
                 new Airport("CHI", "Chicago, IL"), new Airport("MIA", "Miami, FL"), destinationDetails, cruiseSuggestion);
