@@ -1,11 +1,7 @@
 package application.controller;
 
 import application.domain.*;
-import application.service.AirportService;
-import application.service.CruiseSuggestionService;
-import application.service.FlightSearchService;
-import application.service.ImageService;
-import application.service.UserStoreService;
+import application.service.*;
 import com.google.common.collect.Lists;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
