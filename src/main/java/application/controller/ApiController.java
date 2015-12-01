@@ -6,11 +6,8 @@ import application.domain.FlightSuggestion;
 import application.domain.RatedSuggestion;
 import application.domain.Flights;
 import application.service.AirportService;
-<<<<<<< HEAD
 import application.service.ImageService;
-=======
 import application.service.FlightSearchService;
->>>>>>> 8b6c834... Flight search
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
