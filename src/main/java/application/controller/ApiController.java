@@ -5,18 +5,21 @@ import application.domain.DestinationDetails;
 import application.domain.FlightSuggestion;
 import application.domain.RatedSuggestion;
 import application.service.AirportService;
+import application.service.ImageService;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 @RestController
 public class ApiController {
 
     @Autowired
-    AirportService airportService;
+    private AirportService airportService;
+
+    @Autowired
+    private ImageService imageService;
 
     @RequestMapping("/")
     public String index() {
@@ -32,10 +35,10 @@ public class ApiController {
     @RequestMapping(value = "/api/suggestion", method = RequestMethod.GET)
     public FlightSuggestion getFlight(@RequestParam("user") String user,
                                       @RequestParam("origin") String origin,
-                                      @RequestParam("date") Date date) {
+                                      @RequestParam("date") String date) {
 
         DestinationDetails destinationDetails = new DestinationDetails();
-        destinationDetails.setDestinationImages(Lists.newArrayList("imageUrl"));
+        destinationDetails.setDestinationImages(imageService.getCityImages("Chicago", Lists.newArrayList("the bean"), 3));
 
         return new FlightSuggestion(BigDecimal.valueOf(100), "2016-01-01",
                 new Airport("CHI", "Chicago, IL"), new Airport("MIA", "Miami, FL"), destinationDetails);
