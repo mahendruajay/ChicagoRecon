@@ -11,4 +11,10 @@ public class ApiController {
         return "Greetings from Spring Boot!";
     }
 
+    @RequestMapping("/api/suggestion/{latitude}/longitude")
+    public String getAirportCode() {
+        return "Greetings from Spring Boot!";
+    }
+
+
 }
