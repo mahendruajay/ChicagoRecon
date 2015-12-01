@@ -1,8 +1,8 @@
 package application.service;
 
 import application.domain.Airport;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.client.Client;
@@ -29,8 +29,6 @@ public class AirportService {
                 queryParam("within", "0km").
                 queryParam("lat", latitude.toString()).
                 queryParam("lng", longitude.toString()).
-//                queryParam("cid", "ReconHackathon").
-//                queryParam("apk", "HackathonDemo").
                 queryParam("type", "city").
                 queryParam("verbose", "3").
                 queryParam("apikey", APIKEY);
@@ -40,20 +38,40 @@ public class AirportService {
         System.out.println("" + response.getStatus());
         String entity = response.readEntity(String.class);
 
-        GsonBuilder builder = new GsonBuilder();
-        Gson gson = builder.create();
+        JSONArray featuresRadialArray = new JSONArray(entity);
+
+        JSONObject featureRadialObject = (JSONObject) featuresRadialArray.get(0);
+
+        String city = "";
+        String longCity = (String) featureRadialObject.get("name");
+        String[] cityName = longCity.split(",");
+
+        if (cityName.length > 0) {
+            city = cityName[0];
+        }
+
+
+        JSONObject links = (JSONObject) featureRadialObject.get("links");
+        String featureID = "";
+
+        if (null != links) {
+            featureID = findPrimaryAirportFeatureID(links);
+        }
+
+        if (featureID.equalsIgnoreCase("")) {
+            return new Airport("ORD", "Chicago");
+        }
+
+//        GsonBuilder builder = new GsonBuilder();
+//        Gson gson = builder.create();
 //        gson.fromJson(entity);
 
         // TODO: AJ: Read Json response, read links->common->hasPrimaryTla->featureID for featureType
 
-        String featureID = "4277587";
-
         client = ClientBuilder.newClient();
         target = client.target(GAIA_GET_FEATURES_BY_ID).
                 path(featureID).
-//                queryParam("cid", "ReconHackathon").
-//                queryParam("apk", "HackathonDemo").
-        queryParam("verbose", "3").
+                queryParam("verbose", "3").
                 queryParam("apikey", APIKEY);
 
         invocationBuilder = target.request();
@@ -61,13 +79,65 @@ public class AirportService {
         System.out.println("" + response.getStatus());
         entity = response.readEntity(String.class);
 
-        // TODO: AJ: Read Json response, read name
-        // read tags->iata->airportCode->value(SEA)
 
+        JSONObject features = new JSONObject(entity);
 
-        Airport airport = new Airport("ORD", "Chicago");
+        String airportCode = findAirportCode(features);
+        if (airportCode.equalsIgnoreCase("")) {
+            return new Airport("ORD", "Chicago");
+        }
+
+        Airport airport = new Airport(airportCode, city);
 
         return airport;
 
+    }
+
+    private String findAirportCode(JSONObject features) {
+        String airportCode = "";
+
+        if (null != features.get("tags")) {
+            JSONObject tags = (JSONObject) features.get("tags");
+            if (null != tags.get("iata")) {
+                JSONObject iata = (JSONObject) tags.get("iata");
+                if (null != iata.get("airportCode")) {
+                    JSONObject airportCodeObj = (JSONObject) iata.get("airportCode");
+                    if (null != airportCodeObj.get("value")) {
+                        return (String) airportCodeObj.get("value");
+                    }
+
+                }
+            }
+        }
+        return airportCode;
+    }
+
+    private String findPrimaryAirportFeatureID(JSONObject links) {
+        String featureID = "";
+
+        if (null != links.get("common")) {
+            JSONArray common = (JSONArray) links.get("common");
+            for (Object obj : common) {
+                if (null != obj) {
+                    JSONObject commonObj = (JSONObject) obj;
+
+                    if (null != commonObj.get("hasPrimaryTla")) {
+                        JSONObject hasPrimaryTla = (JSONObject) commonObj.get("hasPrimaryTla");
+                        if (null != hasPrimaryTla.get("featureType")) {
+                            String featureType = (String) hasPrimaryTla.get("featureType");
+                            if (featureType.equalsIgnoreCase("airport")) {
+                                if (null != hasPrimaryTla.get("featureId")) {
+                                    return (String) hasPrimaryTla.get("featureId");
+                                }
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+
+
+        return featureID;
     }
 }

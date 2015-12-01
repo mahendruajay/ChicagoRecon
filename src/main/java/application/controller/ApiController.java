@@ -49,11 +49,14 @@ public class ApiController {
                 new Airport("CHI", "Chicago, IL"), new Airport("MIA", "Miami, FL"), destinationDetails);
     }
 
-    @RequestMapping("/api/suggestion/{latitude}/{longitude}")
-    public Airport getAirportCode(@PathVariable("latitude") Double latitude,
-                                 @PathVariable("longitude") Double longitude) {
+    @RequestMapping("/api/suggestion/getAirportInfo")
+    public Airport getAirportCode(@RequestParam("lat") String latitude,
+                                  @RequestParam("long") String longitude) {
 
-        return airportService.getAirportCode(latitude, longitude);
+        Double lat = Double.parseDouble(latitude);
+        Double longt = Double.parseDouble(longitude);
+
+        return airportService.getAirportCode(lat, longt);
     }
 
     @RequestMapping(value = "/api/flightsuggestions", method = RequestMethod.GET)
