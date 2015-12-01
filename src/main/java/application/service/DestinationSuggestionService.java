@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -49,5 +50,35 @@ public class DestinationSuggestionService {
             topLabels.add("Cruises");
         }
         return topLabels;
+    }
+
+    public List<Integer> createUserAverage(List<String> cities){
+        int numberOfFeatures = destinations.getDestinationByName("London").getFeatures().size();
+        List<Integer> point = new ArrayList<>(Collections.nCopies(numberOfFeatures, 0));
+
+        //get Destination version of cities
+        List<Destination> cityDestinations = new ArrayList<>();
+        for(String city : cities){
+            Destination d = destinations.getDestinationByName(city);
+            if(d != null){
+                cityDestinations.add(d);
+            }
+        }
+
+
+        for(Destination d : cityDestinations){
+            for(int feature = 0; feature < numberOfFeatures; feature++){
+                point.set(feature, point.get(feature) + d.getFeatures().get(feature));
+            }
+        }
+
+        //TODO: just round down, for now (probably refactor to use Double later)
+        if(cityDestinations.size() > 0){
+            for(int i = 0; i < numberOfFeatures; i++){
+                point.set(i, point.get(i) / cityDestinations.size());
+            }
+        }
+
+        return point;
     }
 }
