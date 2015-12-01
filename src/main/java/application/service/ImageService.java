@@ -3,8 +3,8 @@ package application.service;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
-import domain.ImageResponse;
-import domain.ImageResult;
+import application.domain.ImageResponse;
+import application.domain.ImageResult;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
