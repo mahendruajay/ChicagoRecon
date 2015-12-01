@@ -6,30 +6,30 @@ package application.domain;
 public class RatedSuggestion {
 
     private String userId;
-    private String flightId;
-    private String rating;
+    private String cityName;
+    private boolean selected;
+    private String price;
+
+    public RatedSuggestion(String userId, String cityName, boolean selected, String price) {
+        this.userId = userId;
+        this.cityName = cityName;
+        this.selected = selected;
+        this.price = price;
+    }
 
     public String getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public String getCityName() {
+        return cityName;
     }
 
-    public String getFlightId() {
-        return flightId;
+    public boolean isSelected() {
+        return selected;
     }
 
-    public void setFlightId(String flightId) {
-        this.flightId = flightId;
-    }
-
-    public String getRating() {
-        return rating;
-    }
-
-    public void setRating(String rating) {
-        this.rating = rating;
+    public String getPrice() {
+        return price;
     }
 }
