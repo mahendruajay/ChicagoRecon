@@ -3,7 +3,7 @@ package domain;
 /**
  * Created by rellison on 11/30/15.
  */
-public class RatedFlight {
+public class RatedSuggestion {
 
     private String userId;
     private String flightId;

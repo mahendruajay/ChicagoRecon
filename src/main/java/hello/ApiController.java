@@ -1,7 +1,7 @@
 package hello;
 
 import domain.Flight;
-import domain.RatedFlight;
+import domain.RatedSuggestion;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -15,9 +15,9 @@ public class ApiController {
     }
 
     @RequestMapping(value="/api/suggestion/rate", method= RequestMethod.POST)
-    public String rateFlight(@RequestBody RatedFlight ratedFlight) {
+    public String rateFlight(@RequestBody RatedSuggestion ratedSuggestion) {
 
-        return "flight rated";
+        return "suggestion rated";
     }
 
     @RequestMapping(value="/api/suggestion", method= RequestMethod.GET)
