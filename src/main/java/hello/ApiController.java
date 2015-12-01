@@ -1,10 +1,10 @@
 package hello;
 
+import domain.Flight;
 import domain.RatedFlight;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
 
 @RestController
 public class ApiController {
@@ -14,12 +14,18 @@ public class ApiController {
         return "Greetings from Spring Boot!";
     }
 
-    @RequestMapping(value="/rateFlight", method= RequestMethod.POST)
+    @RequestMapping(value="/api/suggestion/rate", method= RequestMethod.POST)
     public String rateFlight(@RequestBody RatedFlight ratedFlight) {
 
         return "flight rated";
     }
 
+    @RequestMapping(value="/api/suggestion", method= RequestMethod.GET)
+    public Flight getFlight(@RequestParam("user") String user,
+                            @RequestParam("origin") String origin,
+                            @RequestParam("date") Date date) {
 
+        return new Flight();
+    }
 
 }
