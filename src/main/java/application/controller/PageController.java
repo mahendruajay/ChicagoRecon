@@ -12,4 +12,11 @@ public class PageController {
         // the ftl file name under resources/templates
         return "homepage";
     }
+
+    @RequestMapping("/wallet")
+    String wallet() {
+
+        // the ftl file name under resources/templates
+        return "walletpage";
+    }
 }
