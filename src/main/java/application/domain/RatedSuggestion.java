@@ -6,7 +6,7 @@ package application.domain;
 public class RatedSuggestion {
 
     private String userId;
-    private String flightId;
+    private String city;
     private String rating;
 
     public String getUserId() {
@@ -17,12 +17,12 @@ public class RatedSuggestion {
         this.userId = userId;
     }
 
-    public String getFlightId() {
-        return flightId;
+    public String getCity() {
+        return city;
     }
 
-    public void setFlightId(String flightId) {
-        this.flightId = flightId;
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getRating() {
