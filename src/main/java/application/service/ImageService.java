@@ -2,9 +2,8 @@ package application.service;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
-import com.google.gson.Gson;
-import application.domain.ImageResponse;
-import application.domain.ImageResult;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
@@ -12,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.List;
  */
 @Component
 public class ImageService {
-    private static final String BASE_IMAGE_SEARCH_URL = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&safe=active&imgtype=photo&imgsz=xlarge&rsz=%d&q=%s";
+    private static final String BASE_IMAGE_SEARCH_URL = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&safe=active&imgtype=photo&imgsz=xlarge";
 
     /**
      * Get a list of images matching the criteria for a specific city.
@@ -38,13 +38,14 @@ public class ImageService {
             tags.addAll(additionalTags);
         }
 
-        String url = String.format(BASE_IMAGE_SEARCH_URL, imageCount, Joiner.on(",").join(tags));
-
         try {
+            String url = BASE_IMAGE_SEARCH_URL +
+                    "&rsz=" + imageCount +
+                    "&q=" + URLEncoder.encode(Joiner.on(",").join(tags), "UTF-8");
             String response = readJsonFromUrl(url);
 
             return processResponse(response);
-        } catch (IOException e) {
+        } catch (Exception e) {
             return new ArrayList<>();
         }
     }
@@ -65,15 +66,16 @@ public class ImageService {
         }
     }
 
-    private List<String> processResponse(String json) {
+    private List<String> processResponse(String json) throws IOException {
         List<String> images = new ArrayList<>();
-        Gson gson = new Gson();
-        ImageResponse imageResponse = gson.fromJson(json, ImageResponse.class);
 
-        if (imageResponse != null && imageResponse.getImages() != null) {
-            for (ImageResult imageResult : imageResponse.getImages()) {
-                images.add(imageResult.getUrl());
-            }
+        JSONObject baseObject = new JSONObject(json);
+        JSONObject responseData = baseObject.getJSONObject("responseData");
+        JSONArray results = responseData.getJSONArray("results");
+
+        for (int i = 0; i < results.length(); ++i) {
+            final JSONObject image = results.getJSONObject(i);
+            images.add(image.getString("unescapedUrl"));
         }
 
         return images;
