@@ -1,5 +1,6 @@
-package hello;
+package controller;
 
+import domain.Airport;
 import domain.Flight;
 import domain.RatedSuggestion;
 import org.springframework.web.bind.annotation.*;
@@ -29,8 +30,8 @@ public class ApiController {
     }
 
     @RequestMapping("/api/suggestion/{latitude}/longitude")
-    public String getAirportCode() {
-        return "Greetings from Spring Boot!";
+    public Airport getAirportCode() {
+        return new Airport();
     }
 
 
