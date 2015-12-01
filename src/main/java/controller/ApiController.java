@@ -1,5 +1,8 @@
 package controller;
 
+import com.google.common.collect.Lists;
+import domain.Airport;
+import domain.DestinationDetails;
 import domain.FlightSuggestion;
 import domain.RatedSuggestion;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +34,11 @@ public class ApiController {
                             @RequestParam("origin") String origin,
                             @RequestParam("date") Date date) {
 
-        return new FlightSuggestion(BigDecimal.valueOf(100), "2016-01-01", "CHI", "Chicago, IL", "MIA", "Miami, FL","imageUrl", null);
+        DestinationDetails destinationDetails = new DestinationDetails();
+        destinationDetails.setDestinationImages(Lists.newArrayList("imageUrl"));
+
+        return new FlightSuggestion(BigDecimal.valueOf(100), "2016-01-01",
+                new Airport("CHI", "Chicago, IL"), new Airport("MIA", "Miami, FL"), destinationDetails);
     }
 
     @RequestMapping("/api/suggestion/{latitude}/{longitude}")

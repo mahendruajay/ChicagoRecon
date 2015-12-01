@@ -8,21 +8,15 @@ import java.math.BigDecimal;
 public class FlightSuggestion {
     private BigDecimal price;
     private String departureDate;
-    private String originAirportCode;
-    private String originCity;
-    private String destinationAirportCode;
-    private String destinationCity;
-    private String destinationImage;
+    private Airport originAirport;
+    private Airport destinationAirport;
     private DestinationDetails destinationDetails;
 
-    public FlightSuggestion(BigDecimal price, String departureDate, String originAirportCode, String originCity, String destinationAirportCode, String destinationCity, String destinationImage, DestinationDetails destinationDetails) {
+    public FlightSuggestion(BigDecimal price, String departureDate, Airport originAirport, Airport destinationAirport, DestinationDetails destinationDetails) {
         this.price = price;
         this.departureDate = departureDate;
-        this.originAirportCode = originAirportCode;
-        this.originCity = originCity;
-        this.destinationAirportCode = destinationAirportCode;
-        this.destinationCity = destinationCity;
-        this.destinationImage = destinationImage;
+        this.originAirport = originAirport;
+        this.destinationAirport = destinationAirport;
         this.destinationDetails = destinationDetails;
     }
 
@@ -34,24 +28,12 @@ public class FlightSuggestion {
         return departureDate;
     }
 
-    public String getOriginAirportCode() {
-        return originAirportCode;
+    public Airport getOriginAirport() {
+        return originAirport;
     }
 
-    public String getOriginCity() {
-        return originCity;
-    }
-
-    public String getDestinationAirportCode() {
-        return destinationAirportCode;
-    }
-
-    public String getDestinationCity() {
-        return destinationCity;
-    }
-
-    public String getDestinationImage() {
-        return destinationImage;
+    public Airport getDestinationAirport() {
+        return destinationAirport;
     }
 
     public DestinationDetails getDestinationDetails() {
