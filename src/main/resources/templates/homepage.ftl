@@ -38,7 +38,7 @@
 		<div class="col-sm-12">
 			<!--start-->
 			<div id="carousel-example-generic"  class="carousel slide">
-
+			
 				<!-- Wrapper for slides -->
 				<div class="carousel-inner" role="listbox">
 					<div class="item active">
