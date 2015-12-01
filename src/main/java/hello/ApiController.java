@@ -1,6 +1,6 @@
 package hello;
 
-import domain.LikedFlight;
+import domain.RatedFlight;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,9 +15,9 @@ public class ApiController {
     }
 
     @RequestMapping(value="/rateFlight", method= RequestMethod.POST)
-    public String rateFlight(@RequestBody LikedFlight likedFlight) {
+    public String rateFlight(@RequestBody RatedFlight ratedFlight) {
 
-        return "flight liked";
+        return "flight rated";
     }
 
 
