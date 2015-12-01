@@ -11,14 +11,15 @@ public class FlightSuggestion {
     private Airport originAirport;
     private Airport destinationAirport;
     private DestinationDetails destinationDetails;
+    private CruiseSuggestion cruiseSuggestion;
 
-    public FlightSuggestion(BigDecimal price, String departureDate, Airport originAirport, Airport
-            destinationAirport, DestinationDetails destinationDetails) {
+    public FlightSuggestion(BigDecimal price, String departureDate, Airport originAirport, Airport destinationAirport, DestinationDetails destinationDetails, CruiseSuggestion cruiseSuggestion) {
         this.price = price;
         this.departureDate = departureDate;
         this.originAirport = originAirport;
         this.destinationAirport = destinationAirport;
         this.destinationDetails = destinationDetails;
+        this.cruiseSuggestion = cruiseSuggestion;
     }
 
     public BigDecimal getPrice() {
@@ -39,5 +40,9 @@ public class FlightSuggestion {
 
     public DestinationDetails getDestinationDetails() {
         return destinationDetails;
+    }
+
+    public CruiseSuggestion getCruiseSuggestion() {
+        return cruiseSuggestion;
     }
 }
