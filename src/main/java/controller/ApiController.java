@@ -1,6 +1,5 @@
 package controller;
 
-import domain.Airport;
 import domain.Flight;
 import domain.RatedSuggestion;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +36,7 @@ public class ApiController {
     @RequestMapping("/api/suggestion/{latitude}/{longitude}")
     public String getAirportCode(@PathVariable("latitude") Double latitude,
                                  @PathVariable("longitude") Double longitude) {
-        
+
         return airportService.getAirportCode(latitude, longitude);
     }
 
