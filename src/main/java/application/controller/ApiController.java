@@ -1,10 +1,7 @@
 package application.controller;
 
 import application.domain.*;
-import application.service.AirportService;
-import application.service.CruiseSuggestionService;
-import application.service.FlightSearchService;
-import application.service.ImageService;
+import application.service.*;
 import com.google.common.collect.Lists;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
@@ -29,6 +26,9 @@ public class ApiController {
     FlightSearchService flightSearchService;
 
     @Autowired
+    UserStoreService userStoreService;
+
+    @Autowired
     private CruiseSuggestionService cruiseSuggestionService;
 
     @RequestMapping("/")
@@ -39,7 +39,8 @@ public class ApiController {
     @RequestMapping(value = "/api/suggestion/rate", method = RequestMethod.POST)
     public String rateFlight(@RequestBody RatedSuggestion ratedSuggestion) {
 
-        return "suggestion rated";
+        userStoreService.storeUserResponse(ratedSuggestion);
+        return "Success";
     }
 
     @RequestMapping(value = "/api/suggestion", method = RequestMethod.GET)
@@ -70,7 +71,7 @@ public class ApiController {
         return airportService.getAirportCode(lat, longt);
     }
 
-    @RequestMapping(value = "/api/flightsuggestions", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/flightSearch", method = RequestMethod.GET)
     public Flights getFlights(@RequestParam("departureDate") String departureDate,
                               @RequestParam("departureAirport") String departureAirport,
                               @RequestParam("arrivalAirport") String arrivalAirport,

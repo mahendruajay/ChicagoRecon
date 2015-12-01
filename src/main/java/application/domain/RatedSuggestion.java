@@ -7,13 +7,13 @@ public class RatedSuggestion {
 
     private String userId;
     private String cityName;
-    private boolean selected;
+    private boolean liked;
     private String price;
 
     public RatedSuggestion(String userId, String cityName, boolean selected, String price) {
         this.userId = userId;
         this.cityName = cityName;
-        this.selected = selected;
+        this.liked = selected;
         this.price = price;
     }
 
@@ -25,8 +25,8 @@ public class RatedSuggestion {
         return cityName;
     }
 
-    public boolean isSelected() {
-        return selected;
+    public boolean isLiked() {
+        return liked;
     }
 
     public String getPrice() {

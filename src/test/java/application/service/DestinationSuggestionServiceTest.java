@@ -6,6 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 /**
@@ -25,8 +28,45 @@ public class DestinationSuggestionServiceTest {
     @Test
     public void testService(){
 
-        //String result = service.getNextDestinationTesting();
-        //log.info(result);
+//        "London" /*city*/,
+//        8 /*price*/,
+//        0 /*inUs*/,
+//        10 /*inEurope*/,
+//        0 /*beach*/,
+//        10 /*bigCity*/,
+//        10 /*historic*/,
+//        7 /*outdoorActivities*/,
+//        5 /*familyFriendly*/,
+//        10 /*entertainment*/,
+//        5 /*casinos*/,
+//        5 /*greatDining*/,
+//        0 /*warmDestination*/,
+//        3 /*romantic*/,
+//        0 /*cruises*/
+
+//        "Hong Kong" /*city*/,
+//        10 /*price*/,
+//        0 /*inUs*/,
+//        0 /*inEurope*/,
+//        3 /*beach*/,
+//        10 /*bigCity*/,
+//        0 /*historic*/,
+//        5 /*outdoorActivities*/,
+//        3 /*familyFriendly*/,
+//        5 /*entertainment*/,
+//        5 /*casinos*/,
+//        7 /*greatDining*/,
+//        7 /*warmDestination*/,
+//        3 /*romantic*/,
+//        5 /*cruises*/
+
+
+        List<String> cities = new ArrayList<>();
+        cities.add("London");
+        cities.add("Hong Kong");
+
+        List<Integer> result = service.createUserAverage(cities);
+        result.forEach(r -> log.info(String.valueOf(r)));
     }
 
 }
