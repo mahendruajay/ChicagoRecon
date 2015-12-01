@@ -7,6 +7,7 @@ public class LikedFlight {
 
     private String userId;
     private String flightId;
+    private String rating;
 
     public String getUserId() {
         return userId;
@@ -22,5 +23,13 @@ public class LikedFlight {
 
     public void setFlightId(String flightId) {
         this.flightId = flightId;
+    }
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
     }
 }

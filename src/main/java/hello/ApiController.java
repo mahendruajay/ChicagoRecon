@@ -14,10 +14,12 @@ public class ApiController {
         return "Greetings from Spring Boot!";
     }
 
-    @RequestMapping(value="/likeFlight", method= RequestMethod.POST)
-    public String likeFlight(@RequestBody LikedFlight likedFlight) {
+    @RequestMapping(value="/rateFlight", method= RequestMethod.POST)
+    public String rateFlight(@RequestBody LikedFlight likedFlight) {
 
         return "flight liked";
     }
+
+
 
 }
