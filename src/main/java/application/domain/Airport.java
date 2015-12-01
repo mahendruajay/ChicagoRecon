@@ -1,5 +1,7 @@
 package application.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Created by amahendru on 11/30/15.
  */
@@ -12,10 +14,12 @@ public class Airport {
         this.city = city;
     }
 
+    @JsonProperty("code")
     public String getCode() {
         return code;
     }
 
+    @JsonProperty("city")
     public String getCity() {
         return city;
     }
