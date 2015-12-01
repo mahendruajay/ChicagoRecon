@@ -1,7 +1,5 @@
 package service;
 
-import org.springframework.stereotype.Component;
-
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 import org.springframework.stereotype.Component;
