@@ -20,6 +20,10 @@
 			line-height: 1;
 			margin: 0 auto;
 		}
+		.item{
+			min-height: 290px;
+			max-height: 300px;
+		}
 	</style>
 </head>
 <body>
@@ -28,12 +32,6 @@
 			<div class="col-sm-12">
 				<!--start-->
 				<div id="carousel-example-generic"  class="carousel slide">
-					<!-- Indicators -->
-					<!--<ol class="carousel-indicators">
-						<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-						<li data-target="#carousel-example-generic" data-slide-to="1"></li>
-						<li data-target="#carousel-example-generic" data-slide-to="2"></li>
-					</ol>-->
 
 					<!-- Wrapper for slides -->
 					<div class="carousel-inner" role="listbox">
@@ -53,7 +51,6 @@
 							</div>
 						</div>
 					</div>
-
 					<!-- Controls -->
 					<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
 						<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
@@ -73,48 +70,48 @@
 	</div>
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="jquery-1.11.3.min.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="js/bootstrap.min.js"></script>
+	<script src="js/carousel-swipe.js"></script>
 	<script type="text/javascript">
 		$(function() {
-			getLocation();
-
-			var x = document.getElementById("demo");
+			var x = document.getElementById('demo');
+			var entrySet = '';
+			var lat = '41.881954799999995';
+			var lon = '-87.64098820000001';
+			var apiKey = 'e82ab8efa01b6d2707400c05f7e73a29';
+			var per_page = 40;
+			var flickrAPI = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key='+apiKey+'&lat='+lat+'&lon='+lon+'&format=json&nojsoncallback=1&tags=flight&safe_search=1&per_page='+per_page+'';
 
 			function getLocation() {
 				if (navigator.geolocation) {
-					navigator.geolocation.getCurrentPosition(showPosition);
+					navigator.geolocation.getCurrentPosition(showPosition, successFunction);
 				} else {
 					x.innerHTML = "Geolocation is not supported by this browser.";
 				}
 			}
 
-			function showPosition(position) {
+			function showPosition(position, lat, lon) {
 				x.innerHTML = "Latitude: " + position.coords.latitude +
 						"<br>Longitude: " + position.coords.longitude;
 			}
-			//
-			var entrySet = '';
-			var lat = '41.881954799999995';
-			var lon = '-87.64098820000001';
+
 			if (navigator.geolocation) {
 				navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
 			}
 			//Get the latitude and the longitude;
-			function successFunction(position) {
+			function successFunction(position, lat, lon) {
 				 lat = position.coords.latitude;
-				console.log(lat);
 				 lon = position.coords.longitude;
-				//codeLatLng(lat, lon)
+				console.log(lat, lon);
 			}
 
 			function errorFunction(){
 				alert("Geocoder failed");
 			}
-			var apiKey = 'e82ab8efa01b6d2707400c05f7e73a29';
-			var per_page = 40;
-			var flickrAPI = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key='+apiKey+'&lat='+lat+'&lon='+lon+'&format=json&nojsoncallback=1&safe_search=1&per_page='+per_page+'';
+
+			getLocation();
 
 			$.getJSON(flickrAPI)
 					.done(function(data){
@@ -124,11 +121,8 @@
 
 							//build the url of the photo in order to link to it
 							var photoURL = 'http://farm' + item.farm + '.static.flickr.com/' + item.server + '/' + item.id + '_' + item.secret + '.jpg';
-							//console.log(photoURL);
 							//turn the photo id into a variable
 							var photoTitle = item.title;
-							//console.log(photoTitle);
-							//var itemStorage = '<li><img src="'+photoURL+'" alt="'+photoTitle+'" class="rsImg" title="'+photoTitle+'" /></li>';
 							var itemStorage = '<div class="item"><img src="'+photoURL+'" alt="'+photoTitle+'" class="rsImg" title="'+photoTitle+'" />' +
 									'<div class="carousel-caption">'+
 									'<h3>Chicago</h3>'+
@@ -139,21 +133,10 @@
 							//console.log(entrySet);
 						});
 
-
-						/*jQuery('.royalSlider').royalSlider('destroy').empty().royalSlider({
-							slides: ''+entrySet+'',
-							keyboardNavEnabled: true,
-							loop: true,
-							autoScaleSlider: true,
-							fullscreen: {
-								// fullscreen options go gere
-								enabled: true,
-								nativeFS: false
-							}
-						});*/
-						//$('#results').append(entrySet);
 						$('.carousel-inner').append(entrySet);
 					});
+
+			$('.carousel').carousel({ interval: false });
 		});
 	</script>
 </body>
