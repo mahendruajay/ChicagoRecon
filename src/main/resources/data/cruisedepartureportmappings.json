@@ -1,3 +1,16 @@
 {
-  "MIA" : "miami-florida"
+  "Miami" : "miami-florida",
+  "Charleston" : "charleston-south-carolina",
+  "Seattle" : "seattle-washington",
+  "San Francisco" : "san-francisco-california",
+  "New Orleans" : "new-orleans-louisiana",
+  "San Diego" : "san-diego-california",
+  "Honolulu" : "honolulu-hawaii",
+  "Miami Beach" : "miami-florida",
+  "Boston" : "boston-massachusetts",
+  "Los Angeles" : "los-angeles-california",
+  "London" : "london-tilbury-united-kingdom",
+  "Barcelona" : "barcelona-spain",
+  "Hong Kong" : "hong-kong",
+  "Sydney" : "sydney-australia"
 }
