@@ -29,11 +29,13 @@ public class Destination {
     private String city;
     private String state; //if in US
     private String country;
+    private List<String> airportCodes;
     private List<Integer> features;
 
     public Destination(String city,
                        String state,
                        String country,
+                       List<String> airportCodes,
                        int price,
                        int inUs,
                        int inEurope,
@@ -51,6 +53,7 @@ public class Destination {
         this.city = city;
         this.state = state;
         this.country = country;
+        this.airportCodes = airportCodes;
         features = new ArrayList<>();
         features.add(price);
         features.add(inUs);
