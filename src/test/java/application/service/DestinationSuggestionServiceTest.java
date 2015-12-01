@@ -25,8 +25,8 @@ public class DestinationSuggestionServiceTest {
     @Test
     public void testService(){
 
-        String result = service.getNextDestinationTesting();
-        log.info(result);
+        //String result = service.getNextDestinationTesting();
+        //log.info(result);
     }
 
 }
