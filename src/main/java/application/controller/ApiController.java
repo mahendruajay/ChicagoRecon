@@ -4,8 +4,13 @@ import application.domain.Airport;
 import application.domain.DestinationDetails;
 import application.domain.FlightSuggestion;
 import application.domain.RatedSuggestion;
+import application.domain.Flights;
 import application.service.AirportService;
+<<<<<<< HEAD
 import application.service.ImageService;
+=======
+import application.service.FlightSearchService;
+>>>>>>> 8b6c834... Flight search
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +25,9 @@ public class ApiController {
 
     @Autowired
     private ImageService imageService;
+
+    @Autowired
+    FlightSearchService flightSearchService;
 
     @RequestMapping("/")
     public String index() {
@@ -50,4 +58,16 @@ public class ApiController {
 
         return airportService.getAirportCode(latitude, longitude);
     }
+
+    @RequestMapping(value = "/api/flightsuggestions", method = RequestMethod.GET)
+    public Flights getFlights(@RequestParam("departureDate") String departureDate,
+                              @RequestParam("departureAirport") String departureAirport,
+                              @RequestParam("arrivalAirport") String arrivalAirport,
+                              @RequestParam("returnDate") String returnDate
+                              ) {
+
+        return flightSearchService.getFlights(departureDate, departureAirport, arrivalAirport, returnDate);
+
+    }
 }
+

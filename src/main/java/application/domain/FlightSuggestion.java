@@ -12,7 +12,8 @@ public class FlightSuggestion {
     private Airport destinationAirport;
     private DestinationDetails destinationDetails;
 
-    public FlightSuggestion(BigDecimal price, String departureDate, Airport originAirport, Airport destinationAirport, DestinationDetails destinationDetails) {
+    public FlightSuggestion(BigDecimal price, String departureDate, Airport originAirport, Airport
+            destinationAirport, DestinationDetails destinationDetails) {
         this.price = price;
         this.departureDate = departureDate;
         this.originAirport = originAirport;
