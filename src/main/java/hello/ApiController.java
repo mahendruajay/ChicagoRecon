@@ -28,9 +28,12 @@ public class ApiController {
         return new Flight();
     }
 
-    @RequestMapping("/api/suggestion/{latitude}/longitude")
-    public String getAirportCode() {
-        return "Greetings from Spring Boot!";
+    @RequestMapping("/api/suggestion/{latitude}/{longitude}")
+    public String getAirportCode(@PathVariable("latitude") Double latitude,
+                                 @PathVariable("longitude") Double longitude) {
+
+
+        return "Airport code";
     }
 
 
