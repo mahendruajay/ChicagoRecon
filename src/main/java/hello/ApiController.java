@@ -2,12 +2,17 @@ package hello;
 
 import domain.Flight;
 import domain.RatedSuggestion;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import service.AirportService;
 
 import java.util.Date;
 
 @RestController
 public class ApiController {
+
+    @Autowired
+    AirportService airportService;
 
     @RequestMapping("/")
     public String index() {
@@ -31,9 +36,8 @@ public class ApiController {
     @RequestMapping("/api/suggestion/{latitude}/{longitude}")
     public String getAirportCode(@PathVariable("latitude") Double latitude,
                                  @PathVariable("longitude") Double longitude) {
-
-
-        return "Airport code";
+        
+        return airportService.getAirportCode(latitude, longitude);
     }
 
 
