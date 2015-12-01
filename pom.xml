@@ -68,7 +68,7 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <mainClass>controller.Application</mainClass>
+        <mainClass>application.Application</mainClass>
     </properties>
 
     <build>

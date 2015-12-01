@@ -1,13 +1,13 @@
-package controller;
+package application.controller;
 
+import application.domain.Airport;
+import application.domain.DestinationDetails;
+import application.domain.FlightSuggestion;
+import application.domain.RatedSuggestion;
+import application.service.AirportService;
 import com.google.common.collect.Lists;
-import domain.Airport;
-import domain.DestinationDetails;
-import domain.FlightSuggestion;
-import domain.RatedSuggestion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import service.AirportService;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -31,8 +31,8 @@ public class ApiController {
 
     @RequestMapping(value = "/api/suggestion", method = RequestMethod.GET)
     public FlightSuggestion getFlight(@RequestParam("user") String user,
-                            @RequestParam("origin") String origin,
-                            @RequestParam("date") Date date) {
+                                      @RequestParam("origin") String origin,
+                                      @RequestParam("date") Date date) {
 
         DestinationDetails destinationDetails = new DestinationDetails();
         destinationDetails.setDestinationImages(Lists.newArrayList("imageUrl"));

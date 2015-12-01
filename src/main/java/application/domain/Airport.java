@@ -1,4 +1,4 @@
-package domain;
+package application.domain;
 
 /**
  * Created by amahendru on 11/30/15.

@@ -1,5 +1,6 @@
-package controller;
+package application;
 
+import application.controller.ApiController;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
