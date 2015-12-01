@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class PageController {
 
-    @RequestMapping("/app")
-    String home() {
+    @RequestMapping("/rate")
+    public String pageLoad() {
 
         // the ftl file name under resources/templates
-        return "homepage";
+        return "application";
     }
 
     @RequestMapping("/wallet")
@@ -19,4 +19,5 @@ public class PageController {
         // the ftl file name under resources/templates
         return "walletpage";
     }
+
 }
