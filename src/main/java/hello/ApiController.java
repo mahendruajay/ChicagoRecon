@@ -1,7 +1,7 @@
 package hello;
 
 import domain.Flight;
-import domain.RatedFlight;
+import domain.RatedSuggestion;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -14,13 +14,13 @@ public class ApiController {
         return "Greetings from Spring Boot!";
     }
 
-    @RequestMapping(value = "/api/suggestion/rate", method = RequestMethod.POST)
-    public String rateFlight(@RequestBody RatedFlight ratedFlight) {
+    @RequestMapping(value="/api/suggestion/rate", method= RequestMethod.POST)
+    public String rateFlight(@RequestBody RatedSuggestion ratedSuggestion) {
 
-        return "flight rated";
+        return "suggestion rated";
     }
 
-    @RequestMapping(value = "/api/suggestion", method = RequestMethod.GET)
+    @RequestMapping(value="/api/suggestion", method= RequestMethod.GET)
     public Flight getFlight(@RequestParam("user") String user,
                             @RequestParam("origin") String origin,
                             @RequestParam("date") Date date) {
