@@ -40,9 +40,11 @@ public class FlightSearchService {
         Invocation.Builder invocationBuilder = target.request();
         Response response = invocationBuilder.get();
         String entity = response.readEntity(String.class);
-        parseJson(entity);
+        String legIdAndPrice = parseJson(entity);
+        String legId = legIdAndPrice.split("!")[0];
+        String price = legIdAndPrice.split("!")[1];
 
-        Flights flights = new Flights("2015-12-28", "LAS", "SEA", "2015-12-30");
+        Flights flights = new Flights("2015-12-28", "LAS", "SEA", "2015-12-30", legId, price);
         return flights;
 
     }
@@ -78,7 +80,7 @@ public class FlightSearchService {
 
         ArrayList<String> legIdList = m.get(lowestPrice);
 
-        return legIdList.get(0);
+        return legIdList.get(0) + "!" +lowestPrice;
     }
 }
 

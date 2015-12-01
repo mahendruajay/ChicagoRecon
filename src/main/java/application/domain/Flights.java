@@ -9,13 +9,17 @@ public class Flights {
         private String originAirport;
         private String destinationAirport;
         private String returnDate;
+        private String legId;
+        private String price;
 
         public Flights(String departureDate, String originAirport, String
-                destinationAirport, String returnDate) {
+                destinationAirport, String returnDate, String legId, String price) {
             this.departureDate = departureDate;
             this.originAirport = originAirport;
             this.destinationAirport = destinationAirport;
             this.returnDate = returnDate;
+            this.legId = legId;
+            this.price = price;
         }
 
         public String getDepartureDate() {
@@ -32,5 +36,8 @@ public class Flights {
 
         public String getReturnDate() { return returnDate; }
 
+        public String getLegId() { return legId; }
+
+        public String getPrice() { return price; }
 
 }

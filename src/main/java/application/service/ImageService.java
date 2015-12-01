@@ -1,27 +1,24 @@
 package application.service;
 
+import application.util.CommonUtils;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.net.URLEncoder;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by predding on 11/30/15.
  */
 @Component
 public class ImageService {
-    private static final String BASE_IMAGE_SEARCH_URL = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&safe=active&imgtype=photo&imgsz=xlarge";
+    private static final String BASE_IMAGE_SEARCH_URL = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&safe=active&imgtype=photo&imgsz=xlarge&rsz=%d&q=%s";
 
     /**
      * Get a list of images matching the criteria for a specific city.
@@ -39,30 +36,12 @@ public class ImageService {
         }
 
         try {
-            String url = BASE_IMAGE_SEARCH_URL +
-                    "&rsz=" + imageCount +
-                    "&q=" + URLEncoder.encode(Joiner.on(",").join(tags), "UTF-8");
-            String response = readJsonFromUrl(url);
+            String url = String.format(Locale.ENGLISH, BASE_IMAGE_SEARCH_URL, imageCount, URLEncoder.encode(Joiner.on(",").join(tags), "UTF-8"));
+            String response = CommonUtils.readJsonFromUrl(url);
 
             return processResponse(response);
         } catch (Exception e) {
             return new ArrayList<>();
-        }
-    }
-
-    private String readJsonFromUrl(String url) throws IOException {
-        InputStream is = new URL(url).openStream();
-        try {
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-            StringBuilder sb = new StringBuilder();
-            int cp;
-            while ((cp = rd.read()) != -1) {
-                sb.append((char) cp);
-            }
-
-            return sb.toString();
-        } finally {
-            is.close();
         }
     }
 

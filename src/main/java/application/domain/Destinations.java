@@ -33,10 +33,14 @@ public class Destinations {
         destinations = new ArrayList<>();
 
 //      New York City, New York
+        List<String> airportCodes1 = new ArrayList<>();
+        airportCodes1.add("JFK");
+        airportCodes1.add("LGA");
         destinations.add(
                 new Destination("New York City" /*city*/,
                         "New York" /*state*/,
                         "United States" /*country*/,
+                        airportCodes1,
                         3 /*price*/,
                         10 /*inUs*/,
                         0 /*inEurope*/,
@@ -53,10 +57,13 @@ public class Destinations {
                         10 /*cruises*/));
 
 //      Charleston, South Carolina
+        List<String> airportCodes2 = new ArrayList<>();
+        airportCodes2.add("CHS");
         destinations.add(
                 new Destination("Charleston" /*city*/,
                         "South Carolina" /*state*/,
                         "United States" /*country*/,
+                        airportCodes2,
                         2 /*price*/,
                         10 /*inUs*/,
                         0 /*inEurope*/,
@@ -73,10 +80,13 @@ public class Destinations {
                         0 /*cruises*/));
 
 //      Las Vegas, Nevada
+        List<String> airportCodes3 = new ArrayList<>();
+        airportCodes3.add("LAS");
         destinations.add(
                 new Destination("Las Vegas" /*city*/,
                         "Nevada" /*state*/,
                         "United States" /*country*/,
+                        airportCodes3,
                         3 /*price*/,
                         10 /*inUs*/,
                         0 /*inEurope*/,
@@ -93,10 +103,13 @@ public class Destinations {
                         0 /*cruises*/));
 
 //      Seattle, Washington
+        List<String> airportCodes4 = new ArrayList<>();
+        airportCodes4.add("SEA");
         destinations.add(
                 new Destination("Seattle" /*city*/,
                         "Washington" /*state*/,
                         "United States" /*country*/,
+                        airportCodes4,
                         3 /*price*/,
                         10 /*inUs*/,
                         0 /*inEurope*/,
@@ -113,10 +126,13 @@ public class Destinations {
                         7 /*cruises*/));
 
 //      San Francisco, California
+        List<String> airportCodes5 = new ArrayList<>();
+        airportCodes5.add("SFO");
         destinations.add(
                 new Destination("San Francisco" /*city*/,
                         "California" /*state*/,
                         "United States" /*country*/,
+                        airportCodes5,
                         3 /*price*/,
                         10 /*inUs*/,
                         0 /*inEurope*/,
@@ -133,10 +149,14 @@ public class Destinations {
                         7 /*cruises*/));
 
 //      Washington DC, District of Columbia
+        List<String> airportCodes6 = new ArrayList<>();
+        airportCodes6.add("IAD");
+        airportCodes6.add("DCA");
         destinations.add(
                 new Destination("Washington DC" /*city*/,
                         "District of Columbia" /*state*/,
                         "United States" /*country*/,
+                        airportCodes6,
                         3 /*price*/,
                         10 /*inUs*/,
                         0 /*inEurope*/,
@@ -153,10 +173,13 @@ public class Destinations {
                         0 /*cruises*/));
 
 //      New Orleans, Louisiana
+        List<String> airportCodes7 = new ArrayList<>();
+        airportCodes7.add("MSY");
         destinations.add(
                 new Destination("New Orleans" /*city*/,
                         "Louisiana" /*state*/,
                         "United States" /*country*/,
+                        airportCodes7,
                         3 /*price*/,
                         10 /*inUs*/,
                         0 /*inEurope*/,
@@ -173,10 +196,13 @@ public class Destinations {
                         5 /*cruises*/));
 
 //      San Diego, California
+        List<String> airportCodes8 = new ArrayList<>();
+        airportCodes8.add("SAN");
         destinations.add(
                 new Destination("San Diego" /*city*/,
                         "California" /*state*/,
                         "United States" /*country*/,
+                        airportCodes8,
                         3 /*price*/,
                         10 /*inUs*/,
                         0 /*inEurope*/,
@@ -193,10 +219,13 @@ public class Destinations {
                         7 /*cruises*/));
 
 //      Honolulu, Hawaii
+        List<String> airportCodes9 = new ArrayList<>();
+        airportCodes9.add("HNL");
         destinations.add(
                 new Destination("Honolulu" /*city*/,
                         "Hawaii" /*state*/,
                         "United States" /*country*/,
+                        airportCodes9,
                         7 /*price*/,
                         10 /*inUs*/,
                         0 /*inEurope*/,
@@ -213,10 +242,13 @@ public class Destinations {
                         7 /*cruises*/));
 
 //      Miami Beach, Florida
+        List<String> airportCodes10 = new ArrayList<>();
+        airportCodes10.add("MIA");
         destinations.add(
                 new Destination("Miami Beach" /*city*/,
                         "Florida" /*state*/,
                         "United States" /*country*/,
+                        airportCodes10,
                         3 /*price*/,
                         10 /*inUs*/,
                         0 /*inEurope*/,
@@ -233,10 +265,13 @@ public class Destinations {
                         10 /*cruises*/));
 
 //      Boston, Massachusetts
+        List<String> airportCodes11 = new ArrayList<>();
+        airportCodes11.add("BOS");
         destinations.add(
                 new Destination("Boston" /*city*/,
                         "Massachusetts" /*state*/,
                         "United States" /*country*/,
+                        airportCodes11,
                         3 /*price*/,
                         10 /*inUs*/,
                         0 /*inEurope*/,
@@ -253,10 +288,13 @@ public class Destinations {
                         5 /*cruises*/));
 
 //      Orlando, Florida
+        List<String> airportCodes12 = new ArrayList<>();
+        airportCodes12.add("MCO");
         destinations.add(
                 new Destination("Orlando" /*city*/,
                         "Florida" /*state*/,
                         "United States" /*country*/,
+                        airportCodes12,
                         3 /*price*/,
                         10 /*inUs*/,
                         0 /*inEurope*/,
@@ -273,10 +311,13 @@ public class Destinations {
                         2 /*cruises*/));
 
 //      Nashville, Tennessee
+        List<String> airportCodes13 = new ArrayList<>();
+        airportCodes13.add("BNA");
         destinations.add(
                 new Destination("Nashville" /*city*/,
                         "Tennessee" /*state*/,
                         "United States" /*country*/,
+                        airportCodes13,
                         3 /*price*/,
                         10 /*inUs*/,
                         0 /*inEurope*/,
@@ -293,10 +334,13 @@ public class Destinations {
                         0 /*cruises*/));
 
 //      Los Angeles, California
+        List<String> airportCodes14 = new ArrayList<>();
+        airportCodes14.add("LAX");
         destinations.add(
                 new Destination("Los Angeles" /*city*/,
                         "California" /*state*/,
                         "United States" /*country*/,
+                        airportCodes14,
                         3 /*price*/,
                         10 /*inUs*/,
                         0 /*inEurope*/,
@@ -313,10 +357,13 @@ public class Destinations {
                         10 /*cruises*/));
 
 //      San Antonio, Texas
+        List<String> airportCodes15 = new ArrayList<>();
+        airportCodes15.add("SAT");
         destinations.add(
                 new Destination("San Antonio" /*city*/,
                         "Texas" /*state*/,
                         "United States" /*country*/,
+                        airportCodes15,
                         3 /*price*/,
                         10 /*inUs*/,
                         0 /*inEurope*/,
@@ -333,10 +380,13 @@ public class Destinations {
                         0 /*cruises*/));
 
 //      Austin, Texas
+        List<String> airportCodes16 = new ArrayList<>();
+        airportCodes16.add("AUS");
         destinations.add(
                 new Destination("Austin" /*city*/,
                         "Texas" /*state*/,
                         "United States" /*country*/,
+                        airportCodes16,
                         3 /*price*/,
                         10 /*inUs*/,
                         0 /*inEurope*/,
@@ -353,10 +403,13 @@ public class Destinations {
                         0 /*cruises*/));
 
 //      Marrakech, Morocco
+        List<String> airportCodes17 = new ArrayList<>();
+        airportCodes17.add("RAK");
         destinations.add(
                 new Destination("Marrakech" /*city*/,
                         null /*state*/,
                         "Morocco" /*country*/,
+                        airportCodes17,
                         8 /*price*/,
                         0 /*inUs*/,
                         0 /*inEurope*/,
@@ -373,10 +426,13 @@ public class Destinations {
                         0 /*cruises*/));
 
 //      Prague, Czech Republic
+        List<String> airportCodes18 = new ArrayList<>();
+        airportCodes18.add("PRG");
         destinations.add(
                 new Destination("Prague" /*city*/,
                         null /*state*/,
                         "Czech Republic" /*country*/,
+                        airportCodes18,
                         8 /*price*/,
                         0 /*inUs*/,
                         10 /*inEurope*/,
@@ -393,10 +449,13 @@ public class Destinations {
                         0 /*cruises*/));
 
 //      London, United Kingdom
+        List<String> airportCodes19 = new ArrayList<>();
+        airportCodes19.add("LHR");
         destinations.add(
                 new Destination("London" /*city*/,
                         null /*state*/,
                         "United Kingdom" /*country*/,
+                        airportCodes19,
                         8 /*price*/,
                         0 /*inUs*/,
                         10 /*inEurope*/,
@@ -413,10 +472,13 @@ public class Destinations {
                         0 /*cruises*/));
 
 //      Rome, Italy
+        List<String> airportCodes20 = new ArrayList<>();
+        airportCodes20.add("FCO");
         destinations.add(
                 new Destination("Rome" /*city*/,
                         null /*state*/,
                         "Italy" /*country*/,
+                        airportCodes20,
                         8 /*price*/,
                         0 /*inUs*/,
                         10 /*inEurope*/,
@@ -433,10 +495,13 @@ public class Destinations {
                         7 /*cruises*/));
 
 //      Paris, France
+        List<String> airportCodes21 = new ArrayList<>();
+        airportCodes21.add("CDG");
         destinations.add(
                 new Destination("Paris" /*city*/,
                         null /*state*/,
                         "France" /*country*/,
+                        airportCodes21,
                         8 /*price*/,
                         0 /*inUs*/,
                         10 /*inEurope*/,
@@ -453,10 +518,13 @@ public class Destinations {
                         0 /*cruises*/));
 
 //      Zermatt, Switzerland
+        List<String> airportCodes22 = new ArrayList<>();
+        airportCodes22.add("CH");
         destinations.add(
                 new Destination("Zermatt" /*city*/,
                         null /*state*/,
                         "Switzerland" /*country*/,
+                        airportCodes22,
                         8 /*price*/,
                         0 /*inUs*/,
                         10 /*inEurope*/,
@@ -473,10 +541,13 @@ public class Destinations {
                         0 /*cruises*/));
 
 //      Barcelona, Spain
+        List<String> airportCodes23 = new ArrayList<>();
+        airportCodes23.add("BCN");
         destinations.add(
                 new Destination("Barcelona" /*city*/,
                         null /*state*/,
                         "Spain" /*country*/,
+                        airportCodes23,
                         8 /*price*/,
                         0 /*inUs*/,
                         10 /*inEurope*/,
@@ -493,10 +564,13 @@ public class Destinations {
                         0 /*cruises*/));
 
 //      Hong Kong, China
+        List<String> airportCodes24 = new ArrayList<>();
+        airportCodes24.add("HKG");
         destinations.add(
                 new Destination("Hong Kong" /*city*/,
                         null /*state*/,
                         "China" /*country*/,
+                        airportCodes24,
                         10 /*price*/,
                         0 /*inUs*/,
                         0 /*inEurope*/,
@@ -513,10 +587,13 @@ public class Destinations {
                         5 /*cruises*/));
 
 //      Sydney, Australia
+        List<String> airportCodes25 = new ArrayList<>();
+        airportCodes25.add("SYD");
         destinations.add(
                 new Destination("Sydney" /*city*/,
                         null /*state*/,
                         "Australia" /*country*/,
+                        airportCodes25,
                         10 /*price*/,
                         0 /*inUs*/,
                         0 /*inEurope*/,

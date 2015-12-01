@@ -2,10 +2,14 @@ package application.controller;
 
 import application.domain.*;
 import application.service.AirportService;
+import application.service.CruiseSuggestionService;
 import application.service.FlightSearchService;
 import application.service.ImageService;
 import application.service.UserStoreService;
 import com.google.common.collect.Lists;
+import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +17,8 @@ import java.math.BigDecimal;
 
 @RestController
 public class ApiController {
+
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormat.forPattern("yyyy-MM-dd");
 
     @Autowired
     private AirportService airportService;
@@ -25,6 +31,9 @@ public class ApiController {
 
     @Autowired
     UserStoreService userStoreService;
+
+    @Autowired
+    private CruiseSuggestionService cruiseSuggestionService;
 
     @RequestMapping("/")
     public String index() {
@@ -43,12 +52,17 @@ public class ApiController {
                                       @RequestParam("departureCity") String departureCity,
                                       @RequestParam("date") String date) {
 
+        // The imageService and cruiseSuggestionService calls should happen from withing the flightSuggestionService, but for now are here
+        LocalDate departureDate = LocalDate.parse(date, DATE_FORMAT);
+        LocalDate returnDate = departureDate.plusDays(7);
 
         DestinationDetails destinationDetails = new DestinationDetails();
-        destinationDetails.setDestinationImages(imageService.getCityImages(departureCity, Lists.newArrayList("the bean"), 3));
+        destinationDetails.setDestinationImages(imageService.getCityImages("Miami", Lists.newArrayList("beach"), 3));
+
+        CruiseSuggestion cruiseSuggestion = cruiseSuggestionService.getCruiseSuggestion("Miami", departureDate, returnDate);
 
         return new FlightSuggestion(BigDecimal.valueOf(100), "2016-01-01",
-                new Airport("CHI", "Chicago, IL"), new Airport("MIA", "Miami, FL"), destinationDetails);
+                new Airport("CHI", "Chicago, IL"), new Airport("MIA", "Miami, FL"), destinationDetails, cruiseSuggestion);
     }
 
     @RequestMapping("/api/suggestion/getAirportInfo")
