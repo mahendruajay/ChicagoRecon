@@ -34,12 +34,15 @@
 		}
 		.glyphicon {
 			top: 85%;
+			font-size: 300% !important;
 		}
 		.glyphicon-remove {
 			left: 25%;
+			color: #CC5C59 !important;
 		}
         .glyphicon-heart {
             right: 25%;
+			color: #82AA74 !important;
         }
 		.carousel-control .glyphicon-remove,
 		.carousel-control .glyphicon-heart,
@@ -70,20 +73,25 @@
 		}
 		.book-and-explore {
             position: absolute;
-            top: 85%;
+            top: 83%;
             left: 45%;
+		}
+		.book-and-explore .book-inner a {
+			font-size: 140%;
 		}
         .btn-success {
             position: absolute;
             top: 5%;
             right: 15%;
             z-index: 999;
+			font-size: 120%;
         }
 		.explore-inner {
 			position: relative;
-			left: -40%;
+			left: -35%;
             display: block;
             text-align: center;
+			padding-top: 15px;
 		}
         .book-inner {
             left: -50%;
