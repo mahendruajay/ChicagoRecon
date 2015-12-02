@@ -21,17 +21,27 @@ public class DestinationSuggestionService {
         destinations = new Destinations();
     }
 
-    public Suggestion getNextDestination(String user, String origin){
+    public Map<String, Suggestion> getNextDestination(String user, String origin, String currentlyShowing){
 
-        Destination nextPlace = determineNextDestination(user, origin);
-        return new Suggestion(nextPlace.getCity(), nextPlace.getAirportCodes(), getSpecialLabels(nextPlace));
+        Map<String, Destination> nextPlace = determineNextDestination(user, origin, currentlyShowing);
+        Map<String, Suggestion> retVal = new HashMap<>();
+        retVal.put("suggested",
+                new Suggestion(nextPlace.get("suggested").getCity(), nextPlace.get("suggested").getAirportCodes(), getSpecialLabels(nextPlace.get("suggested")))
+        );
+        retVal.put("followingIfLiked",
+                new Suggestion(nextPlace.get("followingIfLiked").getCity(), nextPlace.get("followingIfLiked").getAirportCodes(), getSpecialLabels(nextPlace.get("followingIfLiked")))
+        );
+        retVal.put("followingIfDisliked",
+                new Suggestion(nextPlace.get("followingIfDisliked").getCity(), nextPlace.get("followingIfDisliked").getAirportCodes(), getSpecialLabels(nextPlace.get("followingIfDisliked")))
+        );
+        return retVal;
     }
 
     public void setUserStore(UserStore userStore){
         this.userStore = userStore;
     }
 
-    private Destination determineNextDestination(String userId, String origin){
+    private Map<String, Destination> determineNextDestination(String userId, String origin, String currentlyShowing){
 
         User user = null;
         if(userStore.getUsers().containsKey(userId)){
@@ -48,14 +58,20 @@ public class DestinationSuggestionService {
 
             //if already viewed all, show a liked destination again
             if(alreadyVisited.size() == destinations.getDestinations().size()){
+                Map<String, Destination> returnVal = new HashMap<>();
                 Random rn = new Random();
                 List<String> liked = new ArrayList<>();
                 liked.addAll(user.getLiked().keySet());
                 if(liked.size() > 0) {
-                    return destinations.getDestinationByName(liked.get(rn.nextInt(liked.size())));
+                    returnVal.put("suggested", destinations.getDestinationByName(liked.get(rn.nextInt(liked.size()))));
+                    returnVal.put("followingIfLiked", destinations.getDestinationByName(liked.get(rn.nextInt(liked.size()))));
+                    returnVal.put("followingIfDisliked", destinations.getDestinationByName(liked.get(rn.nextInt(liked.size()))));
+                    return returnVal;
                 } else {
-                    //TODO: fix this path later
-                    return destinations.getDestinationByName("London");
+                    returnVal.put("suggested", destinations.getDestinationByName(alreadyVisited.get(rn.nextInt(alreadyVisited.size()))));
+                    returnVal.put("followingIfLiked", destinations.getDestinationByName(alreadyVisited.get(rn.nextInt(alreadyVisited.size()))));
+                    returnVal.put("followingIfDisliked", destinations.getDestinationByName(alreadyVisited.get(rn.nextInt(alreadyVisited.size()))));
+                    return returnVal;
                 }
             }
 
@@ -73,12 +89,88 @@ public class DestinationSuggestionService {
                 }
             }
 
-            //for now, always say London
-            return destinations.getDestinationByName(bestNextCity);
+            Map<String, Destination> returnVal = new HashMap<>();
+            //best place
+            returnVal.put("suggested", destinations.getDestinationByName(bestNextCity));
+
+            //now suppose we rated from currently showing...
+            alreadyVisited.add(currentlyShowing);
+            if(alreadyVisited.size() == destinations.getDestinations().size()){
+                Random rn = new Random();
+                List<String> liked = new ArrayList<>();
+                liked.addAll(user.getLiked().keySet());
+                if(liked.size() > 0) {
+                    returnVal.put("followingIfLiked", destinations.getDestinationByName(liked.get(rn.nextInt(liked.size()))));
+                    returnVal.put("followingIfDisliked", destinations.getDestinationByName(liked.get(rn.nextInt(liked.size()))));
+                    return returnVal;
+                } else {
+                    returnVal.put("followingIfLiked", destinations.getDestinationByName(alreadyVisited.get(rn.nextInt(alreadyVisited.size()))));
+                    returnVal.put("followingIfD" +
+                            "isliked", destinations.getDestinationByName(alreadyVisited.get(rn.nextInt(alreadyVisited.size()))));
+                    return returnVal;
+                }
+            }
+
+            //suppose they like current city
+            Map<String, Selection> futureUserLiked = new HashMap<>();
+            for(String liked : user.getLiked().keySet()){
+                //TODO: if we consider price, we'll need to change 0 to reflect the price of currently showing
+                futureUserLiked.put(liked, new Selection(liked, "0"));
+            }
+            futureUserLiked.put(currentlyShowing, new Selection(currentlyShowing, "0"));
+
+            List<Integer> userLikeAveragePointAfterLikingSuggested = createUserAverage(futureUserLiked);
+            List<Integer> userDislikeAveragePointAfterLikingSuggested = createUserAverage(user.getDisliked());
+
+            Map<String, Double> distNewToLikedPointsIfLikeSuggested = distancesPointToNewDestinations(userLikeAveragePointAfterLikingSuggested, alreadyVisited);
+            Map<String, Double> distNewToDislikedPointsIfLikeSuggested = distancesPointToNewDestinations(userDislikeAveragePointAfterLikingSuggested, alreadyVisited);
+            Map<String, Double> cityNetDistIfLikeSuggested = findNetDists(distNewToLikedPointsIfLikeSuggested, distNewToDislikedPointsIfLikeSuggested);
+
+            Double minDistanceIfLikeSuggested = 1000000.0;
+            String bestNextCityIfLikeSuggested = "";
+            for(String city : cityNetDistIfLikeSuggested.keySet()){
+                if(cityNetDist.get(city) < minDistanceIfLikeSuggested){
+                    minDistanceIfLikeSuggested = cityNetDist.get(city);
+                    bestNextCityIfLikeSuggested = city;
+                }
+            }
+            returnVal.put("followingIfLiked", destinations.getDestinationByName(bestNextCityIfLikeSuggested));
+
+
+            //suppose they dislike current city
+            Map<String, Selection> futureUserDisliked = new HashMap<>();
+            for(String disliked : user.getDisliked().keySet()){
+                //TODO: if we consider price, we'll need to change 0 to reflect the price of currently showing
+                futureUserDisliked.put(disliked, new Selection(disliked, "0"));
+            }
+            futureUserDisliked.put(currentlyShowing, new Selection(currentlyShowing, "0"));
+
+            List<Integer> userLikeAveragePointAfterDislikingSuggested = createUserAverage(user.getLiked());
+            List<Integer> userDislikeAveragePointAfterDislikingSuggested = createUserAverage(futureUserDisliked);
+
+            Map<String, Double> distNewToLikedPointsIfDislikeSuggested = distancesPointToNewDestinations(userLikeAveragePointAfterDislikingSuggested, alreadyVisited);
+            Map<String, Double> distNewToDislikedPointsIfDislikeSuggested = distancesPointToNewDestinations(userDislikeAveragePointAfterDislikingSuggested, alreadyVisited);
+            Map<String, Double> cityNetDistIfDislikeSuggested = findNetDists(distNewToLikedPointsIfDislikeSuggested, distNewToDislikedPointsIfDislikeSuggested);
+
+            Double minDistanceIfDislikeSuggested = 1000000.0;
+            String bestNextCityIfDislikeSuggested = "";
+            for(String city : cityNetDistIfDislikeSuggested.keySet()){
+                if(cityNetDist.get(city) < minDistanceIfDislikeSuggested){
+                    minDistanceIfDislikeSuggested = cityNetDist.get(city);
+                    bestNextCityIfDislikeSuggested = city;
+                }
+            }
+            returnVal.put("followingIfDisliked", destinations.getDestinationByName(bestNextCityIfDislikeSuggested));
+
+            return returnVal;
         } else{
             //user has no rating history, show a random destination
             Random rn = new Random();
-            return destinations.getDestinations().get(rn.nextInt(destinations.getDestinations().size()));
+            Map<String, Destination> returnVal = new HashMap<>();
+            returnVal.put("suggested", destinations.getDestinations().get(rn.nextInt(destinations.getDestinations().size())));
+            returnVal.put("followingIfLiked", destinations.getDestinations().get(rn.nextInt(destinations.getDestinations().size())));
+            returnVal.put("followingIfDisliked", destinations.getDestinations().get(rn.nextInt(destinations.getDestinations().size())));
+            return returnVal;
         }
     }
 
