@@ -54,14 +54,25 @@ public class UserStoreService {
         List<FlightSuggestion> flightSuggestions = new ArrayList<>();
 
         for (Selection selection : selections) {
+
             FlightSuggestion flightSuggestion = new FlightSuggestion(selection.getPrice(), selection.getDepartureDate(),
                     selection.getArrivalDate(),
-                    new Airport("", selection.getDepartureCity()),
-                    new Airport("", selection.getArrivalCity()), null, null, "", "");
+                    new Airport(getCodeFromCityName(selection.getDepartureCity()), selection.getDepartureCity()),
+                    new Airport(getCodeFromCityName(selection.getArrivalCity()), selection.getArrivalCity()), null, null, "", "");
 
             flightSuggestions.add(flightSuggestion);
         }
 
         return flightSuggestions;
+    }
+
+    private String getCodeFromCityName(String city) {
+        List<Destination> destinations = new Destinations().getDestinations();
+        for (Destination destination : destinations) {
+            if(destination.getCity().equalsIgnoreCase(city)) {
+                return destination.getAirportCodes().get(0);
+            }
+        }
+        return "CHI";
     }
 }
