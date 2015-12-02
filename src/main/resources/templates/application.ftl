@@ -113,16 +113,27 @@
 			background-color: black;
 			opacity: 0.6;
 		}
+		#server-side-content {
+			text-align: center;
+		}
+		
+		#client-side-content {
+			display: none;
+		}
+		
+		body.show-client-content #client-side-content {
+			display: block;
+		}
+		
 	</style>
 </head>
 <body>
 
 	<div id="server-side-content">
-		<img src="/static/loading.gif">
+		<img class="loading-image" src="/static/loading.gif">
 	</div>
 	
 	<div id="client-side-content">
-		
 	</div>
 	
 	<#include "handlebars-templates.ftl" >

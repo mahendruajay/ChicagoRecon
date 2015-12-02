@@ -63,10 +63,12 @@ application.RateRoute = Ember.Route.extend({
 	actions: {
 		error: function() {
 			$('#server-side-content').remove();
+			$('body').addClass('show-client-content');
 			return true;
 		},
 		didTransition: function() {
 			$('#server-side-content').remove();
+			$('body').addClass('show-client-content');
 			return true;
 		}
 	}
