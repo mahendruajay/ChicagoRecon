@@ -1,16 +1,20 @@
 package application.controller;
 
-import application.domain.Airport;
 import application.domain.FlightSuggestion;
-import com.google.common.collect.Lists;
+import application.service.UserStoreService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
 @Controller
 public class PageController {
+
+    @Autowired
+    UserStoreService userStoreService;
 
     @RequestMapping("/rate")
     public String pageLoad() {
@@ -27,12 +31,8 @@ public class PageController {
     }
 
     @RequestMapping("/wallet")
-    ModelAndView wallet() {
-        FlightSuggestion suggestion = new FlightSuggestion("200", "2016-01-01", new Airport("ord", "Seattle"), new Airport("mia", "Miami"), null, null);
-        suggestion.getDeeplinkURL();
-        FlightSuggestion suggestion2 = new FlightSuggestion("100", "2016-01-01", new Airport("ord", "Seattle"), new Airport("sea", "Seattle"), null, null);
-        List<FlightSuggestion> suggestions = Lists.newArrayList(suggestion, suggestion2);
-        return new ModelAndView("walletpage", "suggestions", suggestions);
+    ModelAndView wallet(@RequestParam("user") String userID) {
+        List<FlightSuggestion> userLikedHistory = userStoreService.getUserLikedHistory(userID);
+        return new ModelAndView("walletpage", "suggestions", userLikedHistory);
     }
-
 }
