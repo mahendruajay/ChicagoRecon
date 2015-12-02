@@ -11,7 +11,9 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class ApiController {
@@ -50,7 +52,7 @@ public class ApiController {
     }
 
     @RequestMapping(value = "/api/suggestion", method = RequestMethod.GET)
-    public FlightSuggestion getFlight(@RequestParam("user") String userID,
+    public Map<String, FlightSuggestion> getFlight(@RequestParam("user") String userID,
                                       @RequestParam("departureAirportCode") String departureAirportCode,
                                       @RequestParam("departureAirportCity") String departureAirportCity,
                                       @RequestParam("departureDate") String date,
@@ -64,23 +66,36 @@ public class ApiController {
         if(currentlyShowing == null){
             currentlyShowing = "Seattle";
         }
-        Suggestion suggestion = destinationSuggestionService.getNextDestination(userID, departureAirportCity, currentlyShowing).get("suggested");
 
-        String depDate = departureDate.format(DATE_FORMAT);
-        String retDate = returnDate.format(DATE_FORMAT);
-        String displayDepDate = departureDate.format(DISPLAY_DATE_FORMAT);
-        String displayRetDate = returnDate.format(DISPLAY_DATE_FORMAT);
+        String[] strArray = {"suggested", "followingIfLiked", "followingIfDisliked"};
 
-        Flights flights = flightSearchService.getFlights(depDate, departureAirportCode, suggestion.getAirportCodes().get(0), retDate);
+        Map<String, FlightSuggestion> flightSuggestions = new LinkedHashMap<>();
 
-        DestinationDetails destinationDetails = new DestinationDetails();
-        destinationDetails.setDestinationImages(imageService.getCityImages(suggestion.getCityName(), suggestion.getLabels(), 3));
+        for (String str : strArray) {
 
-        CruiseSuggestion cruiseSuggestion = cruiseSuggestionService.getCruiseSuggestion(suggestion.getAirportCodes().get(0), departureDate, returnDate);
+            Suggestion suggestionCurrent = destinationSuggestionService.getNextDestination(userID, departureAirportCity, currentlyShowing).get(str);
 
-        return new FlightSuggestion(flights.getPrice(), flights.getDepartureDate(), flights.getReturnDate(),
-                new Airport(departureAirportCode, departureAirportCity), new Airport(suggestion.getAirportCodes().get(0),
-                suggestion.getCityName()), destinationDetails, cruiseSuggestion, displayDepDate, displayRetDate);
+            String depDate = departureDate.format(DATE_FORMAT);
+            String retDate = returnDate.format(DATE_FORMAT);
+            String displayDepDate = departureDate.format(DISPLAY_DATE_FORMAT);
+            String displayRetDate = returnDate.format(DISPLAY_DATE_FORMAT);
+
+            Flights flights = flightSearchService.getFlights(depDate, departureAirportCode, suggestionCurrent.getAirportCodes().get(0), retDate);
+
+            DestinationDetails destinationDetails = new DestinationDetails();
+            destinationDetails.setDestinationImages(imageService.getCityImages(suggestionCurrent.getCityName(), suggestionCurrent.getLabels(), 3));
+
+            CruiseSuggestion cruiseSuggestion = cruiseSuggestionService.getCruiseSuggestion(suggestionCurrent.getAirportCodes().get(0), departureDate, returnDate);
+
+            FlightSuggestion flightSuggestion = new FlightSuggestion(flights.getPrice(), flights.getDepartureDate(), flights.getReturnDate(),
+                    new Airport(departureAirportCode, departureAirportCity), new Airport(suggestionCurrent.getAirportCodes().get(0),
+                    suggestionCurrent.getCityName()), destinationDetails, cruiseSuggestion, displayDepDate, displayRetDate);
+            flightSuggestions.put(str, flightSuggestion);
+
+        }
+
+
+        return flightSuggestions;
     }
 
     @RequestMapping("/api/suggestion/getAirportInfo")
@@ -93,13 +108,6 @@ public class ApiController {
         return airportService.getAirportCode(lat, longt);
     }
 
-
-//    @RequestMapping("/api/suggestion/userHistory")
-//    public Airport getUserHistory(@RequestParam("userID") String userID) {
-//
-//
-////        return userStoreService
-//    }
 
     @RequestMapping(value = "/api/flightSearch", method = RequestMethod.GET)
     public Flights getFlights(@RequestParam("departureDate") String departureDate,
