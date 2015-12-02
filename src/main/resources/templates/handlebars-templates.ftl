@@ -13,7 +13,7 @@
 					<div class="carousel-inner" role="listbox">
 						{{#each suggestions as |suggestion|}}
 							<div id="suggestion-{{suggestion.id}}" class="item {{if suggestion.active "active"}}">
-								<img src="http://farm6.static.flickr.com/5656/23421485796_0fe17b6279.jpg" alt="">
+								<img src="/static/assets/{{suggestion.destinationAirport.code}}.jpg" alt="">
 								<div class="carousel-caption">
 									<h3>{{suggestion.destinationAirport.city}}</h3>
 									<h4>{{suggestion.displayDepartureDate}} - {{suggestion.displayReturnDate}}</h4>
