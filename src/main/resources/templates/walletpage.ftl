@@ -43,7 +43,7 @@
             <div class="media">
                 <div class="media-left">
                     <a href="#">
-                        <img class="media-object" style="max-height:75px;max-width:75px;" src="static/assets/${suggestion.getDestinationAirport().getCode()}.jpg" alt="${suggestion.getDestinationAirport().getCode()}">
+                        <img class="media-object" style="max-height:150px;max-width:150px;" src="static/assets/${suggestion.getDestinationAirport().getCode()}.jpg" alt="${suggestion.getDestinationAirport().getCode()}">
                     </a>
                 </div>
                 <div class="media-body">

@@ -3,6 +3,7 @@
 </script>
 
 <script type="text/x-handlebars" data-template-name="rate">
+	<a class="btn btn-success" href="/wallet?user={{model.user}}">View Wallet</a>
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-12">

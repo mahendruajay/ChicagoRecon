@@ -75,7 +75,8 @@
         .btn-success {
             position: absolute;
             top: 5%;
-            left: 85%;
+            right: 15%;
+            z-index: 999;
         }
 		.explore-inner {
 			position: relative;
