@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -29,7 +30,17 @@ public class CruiseSuggestionService {
 
     private static Map<String, String> airportCodeToDeparturePortMap = null;
 
+    @Autowired
+    private ServiceCache serviceCache;
+
     public CruiseSuggestion getCruiseSuggestion(String destinationAirportCode, LocalDate departureDate, LocalDate returnDate) {
+        String key = serviceCache.generateCruiseSuggestionKey(destinationAirportCode, departureDate, returnDate);
+        CruiseSuggestion cruiseSuggestion = serviceCache.getCruiseSuggestion(key);
+
+        if (cruiseSuggestion != null) {
+            return cruiseSuggestion;
+        }
+
         LocalDate earliestDepartureDate = departureDate.plusDays(1);
         LocalDate latestDepartureDate = returnDate.minusDays(2);
         String earliestDeparture = earliestDepartureDate.format(DATE_FORMAT);
@@ -57,13 +68,15 @@ public class CruiseSuggestionService {
 
                 String deepLink = String.format(Locale.ENGLISH, CRUISE_SEARCH_DEEP_LINK_URL, earliestDeparture, latestDeparture, departurePort, maxLength);
 
-                return new CruiseSuggestion(deepLink, destinations);
+                cruiseSuggestion = new CruiseSuggestion(deepLink, destinations);
             }
         } catch (IOException e) {
-            return null;
+            cruiseSuggestion = null;
         }
 
-        return null;
+        serviceCache.cacheCruiseSuggestion(key, cruiseSuggestion);
+
+        return cruiseSuggestion;
     }
 
     private String getDeparturePort(String destinationAirportCode) throws IOException {

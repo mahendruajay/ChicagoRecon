@@ -11,9 +11,14 @@
 			line-height: 1;
 			margin: 0 auto;
 		}
+		.carousel p{
+			left: 37%;
+			position: absolute;
+			top: 67%;
+		}
 		.item{
 			min-height: 290px;
-			max-height: 300px;
+			max-height: 500px;
 		}
 		.glyphicon-remove{
 			color: #CC5E5C;
@@ -22,13 +27,30 @@
 		.carousel-control .glyphicon-heart,
 		.carousel-control .icon-next,
 		.carousel-control .icon-prev{
-			color: #83a976;;
+			color: #83a976;
 			display: inline-block;
-		margin-top: -10px;
+			margin-top: -10px;
 			opacity: 1;
-		position: absolute;
-		top: 130%;
-		z-index: 5;
+			position: absolute;
+			top: 80%;
+			z-index: 5;
+		}
+		.col-sm-12{
+			padding-left: 0;
+			padding-right: 0;
+		}
+
+		.carousel-caption {
+			bottom: 20px;
+			color: #fff;
+			left: 15%;
+			padding-bottom: 20px;
+			position: absolute;
+			right: 15%;
+			text-align: center;
+			text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+			top: 5%;
+			z-index: 10;
 		}
 	</style>
 </head>
@@ -38,14 +60,13 @@
 		<div class="col-sm-12">
 			<!--start-->
 			<div id="carousel-example-generic"  class="carousel slide">
-
 				<!-- Wrapper for slides -->
 				<div class="carousel-inner" role="listbox">
 					<div class="item active">
 						<img src="http://farm6.static.flickr.com/5656/23421485796_0fe17b6279.jpg" alt="">
 						<div class="carousel-caption">
 							<h3>Los Angeles</h3>
-							<p><a href="#">Flight Link</a></p>
+							<p><a class="btn btn-warning" href="https://www.expedia.com/Flights-Search?trip=roundtrip&leg1=from:Chicago,%20IL,%20United%20States%20%28ORD-O%27Hare%20Intl.%29,to:Austin,%20TX,%20United%20States%20%28AUS-Austin-Bergstrom%20Intl.%29,departure:12/31/2015TANYT&leg2=from:Austin,%20TX,%20United%20States%20%28AUS-Austin-Bergstrom%20Intl.%29,to:Chicago,%20IL,%20United%20States%20%28ORD-O%27Hare%20Intl.%29,departure:01/01/2016TANYT&passengers=children:0,adults:1,seniors:0,infantinlap:N&mode=search">Book</a></p>
 						</div>
 					</div>
 
@@ -53,7 +74,7 @@
 						<img src="http://farm6.static.flickr.com/5656/23421485796_0fe17b6279.jpg" alt="">
 						<div class="carousel-caption">
 							<h3>Boston</h3>
-							<p><a href="#">Flight Link</a></p>
+							<p><a class="btn btn-warning" href="https://www.expedia.com/Flights-Search?trip=roundtrip&leg1=from:Chicago,%20IL,%20United%20States%20%28ORD-O%27Hare%20Intl.%29,to:Austin,%20TX,%20United%20States%20%28AUS-Austin-Bergstrom%20Intl.%29,departure:12/31/2015TANYT&leg2=from:Austin,%20TX,%20United%20States%20%28AUS-Austin-Bergstrom%20Intl.%29,to:Chicago,%20IL,%20United%20States%20%28ORD-O%27Hare%20Intl.%29,departure:01/01/2016TANYT&passengers=children:0,adults:1,seniors:0,infantinlap:N&mode=search">Book</a></p>
 						</div>
 					</div>
 				</div>
@@ -98,7 +119,7 @@
 						var itemStorage = '<div class="item"><img src="'+photoURL+'" alt="'+photoTitle+'" class="rsImg" title="'+photoTitle+'" />' +
 								'<div class="carousel-caption">'+
 								'<h3>Chicago</h3>'+
-								'<p><a href="https://www.expedia.com/Flights-Search?trip=roundtrip&leg1=from:Chicago,%20IL,%20United%20States%20%28ORD-O%27Hare%20Intl.%29,to:Austin,%20TX,%20United%20States%20%28AUS-Austin-Bergstrom%20Intl.%29,departure:12/31/2015TANYT&leg2=from:Austin,%20TX,%20United%20States%20%28AUS-Austin-Bergstrom%20Intl.%29,to:Chicago,%20IL,%20United%20States%20%28ORD-O%27Hare%20Intl.%29,departure:01/01/2016TANYT&passengers=children:0,adults:1,seniors:0,infantinlap:N&mode=search">Flight Link</a></p></div></div>';
+								'<p><a class="btn btn-warning" href="https://www.expedia.com/Flights-Search?trip=roundtrip&leg1=from:Chicago,%20IL,%20United%20States%20%28ORD-O%27Hare%20Intl.%29,to:Austin,%20TX,%20United%20States%20%28AUS-Austin-Bergstrom%20Intl.%29,departure:12/31/2015TANYT&leg2=from:Austin,%20TX,%20United%20States%20%28AUS-Austin-Bergstrom%20Intl.%29,to:Chicago,%20IL,%20United%20States%20%28ORD-O%27Hare%20Intl.%29,departure:01/01/2016TANYT&passengers=children:0,adults:1,seniors:0,infantinlap:N&mode=search">Book</a></p></div></div>';
 
 						entrySet = (entrySet+itemStorage);
 					});
