@@ -5,6 +5,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.client.Client;
@@ -24,8 +25,17 @@ public class FlightSearchService {
     public static final String BASE_URL = "http://terminal2.expedia.com/x/mflights/search?";
     public static final String API_KEY = "ZfO3QR30jRKFZQaAhTAN85XrWxpe2dyB";
 
+    @Autowired
+    private ServiceCache serviceCache;
+
     public Flights getFlights(String departureDate, String originAirport, String destinationAirport,
-                                       String returnDate) {
+                              String returnDate) {
+        String key = serviceCache.generateFlightsCacheKey(departureDate, originAirport, destinationAirport, returnDate);
+        Flights flights = serviceCache.getFlights(key);
+
+        if (flights != null) {
+            return flights;
+        }
 
         Client client = ClientBuilder.newClient();
         WebTarget target = client.target(BASE_URL).
@@ -42,7 +52,10 @@ public class FlightSearchService {
         String legId = legIdAndPrice.split("!")[0];
         String price = legIdAndPrice.split("!")[1];
 
-        Flights flights = new Flights("2015-12-28", "LAS", "SEA", "2015-12-30", legId, price);
+        flights = new Flights("2015-12-28", "LAS", "SEA", "2015-12-30", legId, price);
+
+        serviceCache.cacheFlights(key, flights);
+
         return flights;
 
     }

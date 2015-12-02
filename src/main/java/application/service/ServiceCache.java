@@ -1,11 +1,13 @@
 package application.service;
 
+import application.domain.Airport;
 import application.domain.CruiseSuggestion;
+import application.domain.Flights;
 import com.google.common.base.Joiner;
 import jersey.repackaged.com.google.common.collect.Lists;
-import org.joda.time.LocalDate;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +16,21 @@ import java.util.Map;
  */
 @Component
 public class ServiceCache {
+    private static Map<String, Flights> flightsMap;
+    private static Map<String, Airport> airportMap;
     private static Map<String, CruiseSuggestion> cruiseSuggestionMap;
+
+    public Flights getFlights(String key) {
+        return flightsMap.get(key);
+    }
+
+    public void cacheFlights(String key, Flights flights) {
+        flightsMap.put(key, flights);
+    }
+
+    public String generateFlightsCacheKey(String departureDate, String originAirport, String destinationAirport, String returnDate) {
+        return Joiner.on(",").join(Lists.newArrayList(departureDate, originAirport, destinationAirport, returnDate));
+    }
 
     public CruiseSuggestion getCruiseSuggestion(String key) {
         return cruiseSuggestionMap.get(key);
@@ -24,7 +40,7 @@ public class ServiceCache {
         cruiseSuggestionMap.put(key, cruiseSuggestion);
     }
 
-    public String getCruiseSuggestionKey(String destinationAirportCode, LocalDate departureDate, LocalDate returnDate) {
+    public String generateCruiseSuggestionKey(String destinationAirportCode, LocalDate departureDate, LocalDate returnDate) {
         List<String> keys = Lists.newArrayList(destinationAirportCode, departureDate.toString(), returnDate.toString());
 
         return Joiner.on(",").join(keys);
