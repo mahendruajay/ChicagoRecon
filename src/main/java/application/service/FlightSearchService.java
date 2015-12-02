@@ -12,9 +12,7 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Response;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * Created by anushasura on 12/1/15.
@@ -51,7 +49,8 @@ public class FlightSearchService {
 
     public String parseJson(String entity) {
         ArrayList<String> priceList = new ArrayList<String>();
-        HashMap<String, ArrayList<String>> m = new HashMap<String,ArrayList<String>>();
+        HashMap<String, TreeMap<Integer,ArrayList<String>>> m = new HashMap<String, TreeMap<Integer,
+                ArrayList<String>>>();
         JsonElement jelement = new JsonParser().parse(entity);
         JsonObject jobject = jelement.getAsJsonObject();
         JsonArray jarray = jobject.getAsJsonArray("offers");
@@ -61,15 +60,30 @@ public class FlightSearchService {
             String price = jobject.get("totalFare").toString();
             priceList.add(price);
             String legIds = jobject.getAsJsonArray("legIds").toString();
-
+            int NumberofLegIds = jobject.getAsJsonArray("legIds").size();
 
             if (m.containsKey(price)) {
-                ArrayList<String> value = m.get(price);
-                value.add(legIds);
-                m.put(price, value);
+                TreeMap<Integer,ArrayList<String>> n = m.get(price);
+
+                if(n.containsKey(NumberofLegIds)) {
+                    ArrayList<String> lIds = n.get(NumberofLegIds);
+                    lIds.add(legIds);
+                    n.put(NumberofLegIds, lIds);
+                }
+
+                else {
+                    ArrayList<String> newlIds = new ArrayList<String>();
+                    newlIds.add(legIds);
+                    n.put(NumberofLegIds, newlIds);
+                }
+
+                m.put(price,n);
+
             } else {
-                ArrayList<String> newValue = new ArrayList<String>();
-                newValue.add(legIds);
+                TreeMap<Integer,ArrayList<String>> newValue = new TreeMap<Integer,ArrayList<String>>();
+                ArrayList<String> lIds = new ArrayList<String>();
+                lIds.add(legIds);
+                newValue.put(NumberofLegIds, lIds);
                 m.put(price, newValue);
             }
         }
@@ -77,10 +91,9 @@ public class FlightSearchService {
         Collections.sort(priceList);
 
         String lowestPrice = priceList.get(0);
+        TreeMap<Integer,ArrayList<String>> legIdList = m.get(lowestPrice);
 
-        ArrayList<String> legIdList = m.get(lowestPrice);
-
-        return legIdList.get(0) + "!" +lowestPrice;
+        return legIdList.firstEntry().getValue().get(0) + "!" +lowestPrice;
     }
 }
 
