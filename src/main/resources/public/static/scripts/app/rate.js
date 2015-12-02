@@ -90,6 +90,8 @@ application.RateController = Ember.Controller.extend({
 			var controller = this;
 			
 			var suggestions = controller.get('suggestions');
+			if (suggestions.length < 3)
+				return; // TODO
 			service.rateSuggestion(this.get('model.user'), suggestions[1], true);
 		
 			setTimeout(function() {
@@ -105,6 +107,8 @@ application.RateController = Ember.Controller.extend({
 			var controller = this;
 		
 			var suggestions = controller.get('suggestions');
+			if (suggestions.length < 3)
+				return; // TODO
 			service.rateSuggestion(this.get('model.user'), suggestions[1], false);
 		
 			setTimeout(function() {
@@ -119,29 +123,30 @@ application.RateController = Ember.Controller.extend({
 	},
 	
 	suggestions: function() {
-		var suggestion = this.get('model.suggestion.suggested');
-		suggestion.active = true;
-		suggestion.id = this.nextId;
-		this.nextId++;
+		var suggestions = this.get('model.suggestion');
+		suggestions.suggested.active = true;
 	
-		return [suggestion];
-	}.property('model.suggestion.suggested'),
+		return [
+			suggestions.followingIfDisliked, 
+			suggestions.suggested, 
+			suggestions.followingIfLiked
+		];
+	}.property('model.suggestion'),
 	
 	preLoadNextSuggestion: function() {
 		var controller = this;
 	
 		service.getSuggestion(this.get('model.user'), this.get('model.airport'))
-		.then(function(newSuggestion) {
+		.then(function(newSuggestions) {
 			var suggestions = controller.get('suggestions');
 			
-			var prevSuggestion = $.extend({id: controller.nextId}, newSuggestion.suggested);
-			controller.nextId++;
-			var nextSuggestion = $.extend({id: controller.nextId}, newSuggestion.suggested);
-			controller.nextId++;
-			
-			controller.set('suggestions', [prevSuggestion, suggestions[0], nextSuggestion]);
+			controller.set('suggestions', [
+				newSuggestions.followingIfDisliked, 
+				suggestions[0], 
+				newSuggestions.followingIfLiked
+			]);
 		});
-	}.observes('model.airport'),
+	},
 	
 	initCarousel: function() {
 		Ember.run.scheduleOnce("afterRender", function() {

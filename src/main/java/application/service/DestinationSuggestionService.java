@@ -234,9 +234,11 @@ public class DestinationSuggestionService {
 
     private Map<String, Double> distancesPointToNewDestinations(List<Integer> point, List<String> alreadyVisited){
         Map<String, Double> distPointToNewDests = new HashMap<>();
+        List<Double> normPoint = normalizeFeatureVector(point);
         destinations.getDestinations().forEach(d -> {
             if(!alreadyVisited.contains(d.getCity())) {
-                distPointToNewDests.put(d.getCity(), distance(point, d.getFeatures()));
+                List<Double> normPoint2 = normalizeFeatureVector(d.getFeatures());
+                distPointToNewDests.put(d.getCity(), distance(normPoint, normPoint2));
             } else {
                 distPointToNewDests.put(d.getCity(), 1000000.0);
             }
@@ -244,7 +246,7 @@ public class DestinationSuggestionService {
         return distPointToNewDests;
     }
 
-    private Double distance(List<Integer> pt1, List<Integer>pt2){
+    private Double distance(List<Double> pt1, List<Double>pt2){
         Double distance = 0.0;
 
         for(int feature = 0; feature < pt1.size(); feature++){
@@ -252,5 +254,19 @@ public class DestinationSuggestionService {
         }
 
         return Math.pow(distance, 0.5);
+    }
+
+    private List<Double> normalizeFeatureVector(List<Integer> vector){
+        int vectorSum = 1;
+        for(Integer feature : vector){
+            vectorSum += feature;
+        }
+
+        List<Double> normalizedFeatureVector = new ArrayList<>();
+        for(Integer feature : vector){
+            normalizedFeatureVector.add(feature.doubleValue() / vectorSum);
+        }
+
+        return normalizedFeatureVector;
     }
 }
