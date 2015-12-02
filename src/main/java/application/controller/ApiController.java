@@ -46,15 +46,15 @@ public class ApiController {
 
     @RequestMapping(value = "/api/suggestion", method = RequestMethod.GET)
     public FlightSuggestion getFlight(@RequestParam("user") String userID,
-                                      @RequestParam("departureCity") String departureCity,
-                                      @RequestParam("departureCity") String departureAirportCode,
-                                      @RequestParam("date") String date) {
+                                      @RequestParam("departureAirportCode") String departureAirportCode,
+                                      @RequestParam("departureAirportCity") String departureAirportCity,
+                                      @RequestParam("departureDate") String date) {
 
         // The imageService and cruiseSuggestionService calls should happen from withing the flightSuggestionService, but for now are here
         LocalDate departureDate = LocalDate.parse(date, DATE_FORMAT);
         LocalDate returnDate = departureDate.plusDays(7);
 
-        Suggestion suggestion = destinationSuggestionService.getNextDestination(userID, departureCity);
+        Suggestion suggestion = destinationSuggestionService.getNextDestination(userID, departureAirportCity);
 
         String depDate = departureDate.format(DATE_FORMAT);
         String retDate = returnDate.format(DATE_FORMAT);
@@ -67,7 +67,7 @@ public class ApiController {
         CruiseSuggestion cruiseSuggestion = cruiseSuggestionService.getCruiseSuggestion(suggestion.getAirportCodes().get(0), departureDate, returnDate);
 
         return new FlightSuggestion(flights.getPrice(), flights.getDepartureDate(),
-                new Airport(departureAirportCode, departureCity), new Airport(suggestion.getAirportCodes().get(0), suggestion.getCityName()), destinationDetails, cruiseSuggestion);
+                new Airport(departureAirportCode, departureAirportCity), new Airport(suggestion.getAirportCodes().get(0), suggestion.getCityName()), destinationDetails, cruiseSuggestion);
     }
 
     @RequestMapping("/api/suggestion/getAirportInfo")
