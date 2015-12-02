@@ -42,64 +42,67 @@ public class AirportService {
                 queryParam("verbose", "3").
                 queryParam("apikey", APIKEY);
 
-        Invocation.Builder invocationBuilder = target.request();
-        Response response = invocationBuilder.get();
-        System.out.println("" + response.getStatus());
-        String entity = response.readEntity(String.class);
+        try {
+            Invocation.Builder invocationBuilder = target.request();
+            Response response = invocationBuilder.get();
+            System.out.println("" + response.getStatus());
+            String entity = response.readEntity(String.class);
 
-        JSONArray featuresRadialArray = new JSONArray(entity);
+            JSONArray featuresRadialArray = new JSONArray(entity);
 
-        JSONObject featureRadialObject = (JSONObject) featuresRadialArray.get(0);
+            JSONObject featureRadialObject = (JSONObject) featuresRadialArray.get(0);
 
-        String city = "";
-        String longCity = (String) featureRadialObject.get("name");
-        String[] cityName = longCity.split(",");
+            String city = "";
+            String longCity = (String) featureRadialObject.get("name");
+            String[] cityName = longCity.split(",");
 
-        if (cityName.length > 0) {
-            city = cityName[0];
-        }
+            if (cityName.length > 0) {
+                city = cityName[0];
+            }
 
-        JSONObject links = (JSONObject) featureRadialObject.get("links");
-        String featureID = "";
+            JSONObject links = (JSONObject) featureRadialObject.get("links");
+            String featureID = "";
 
-        if (null != links) {
-            featureID = findPrimaryAirportFeatureID(links);
-        }
+            if (null != links) {
+                featureID = findPrimaryAirportFeatureID(links);
+            }
 
-        if (featureID.equalsIgnoreCase("")) {
-            return new Airport("ORD", "Chicago");
-        }
+            if (featureID.equalsIgnoreCase("")) {
+                return new Airport("SEA", "Seattle");
+            }
 
 //        GsonBuilder builder = new GsonBuilder();
 //        Gson gson = builder.create();
 //        gson.fromJson(entity);
 
-        // TODO: AJ: Read Json response, read links->common->hasPrimaryTla->featureID for featureType
 
-        client = ClientBuilder.newClient();
-        target = client.target(GAIA_GET_FEATURES_BY_ID).
-                path(featureID).
-                queryParam("verbose", "3").
-                queryParam("apikey", APIKEY);
+            client = ClientBuilder.newClient();
+            target = client.target(GAIA_GET_FEATURES_BY_ID).
+                    path(featureID).
+                    queryParam("verbose", "3").
+                    queryParam("apikey", APIKEY);
 
-        invocationBuilder = target.request();
-        response = invocationBuilder.get();
-        System.out.println("" + response.getStatus());
-        entity = response.readEntity(String.class);
+            invocationBuilder = target.request();
+            response = invocationBuilder.get();
+            System.out.println("" + response.getStatus());
+            entity = response.readEntity(String.class);
 
 
-        JSONObject features = new JSONObject(entity);
+            JSONObject features = new JSONObject(entity);
 
-        String airportCode = findAirportCode(features);
-        if (airportCode.equalsIgnoreCase("")) {
-            return new Airport("ORD", "Chicago");
+            String airportCode = findAirportCode(features);
+            if (airportCode.equalsIgnoreCase("")) {
+                return new Airport("SEA", "Seattle");
+            }
+
+            airport = new Airport(airportCode, city);
+
+            serviceCache.cacheAirport(key, airport);
+
+            return airport;
+        } catch (Exception e) {
+            return new Airport("SEA", "Seattle");
         }
-
-        airport = new Airport(airportCode, city);
-
-        serviceCache.cacheAirport(key, airport);
-
-        return airport;
 
     }
 
