@@ -16,6 +16,18 @@
 			width: inherit;
 			height: inherit;
 		}
+		.container-fluid {
+			padding-left: 0;
+			padding-right: 0;
+		}
+		.row {
+			margin-right: 0;
+			margin-left: 0;
+		}
+		.col-sm-12 {
+			padding-left: 0;
+			padding-right: 0;
+		}
         img .background {
 			height: 100%;
 			width: auto;
