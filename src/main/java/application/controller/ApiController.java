@@ -59,15 +59,15 @@ public class ApiController {
         String depDate = departureDate.format(DATE_FORMAT);
         String retDate = returnDate.format(DATE_FORMAT);
 
-        Flights flights = flightSearchService.getFlights(depDate, departureAirportCode, suggestion.getAirportCode(), retDate);
+        Flights flights = flightSearchService.getFlights(depDate, departureAirportCode, suggestion.getAirportCodes().get(0), retDate);
 
         DestinationDetails destinationDetails = new DestinationDetails();
         destinationDetails.setDestinationImages(imageService.getCityImages(suggestion.getCityName(), suggestion.getLabels(), 3));
 
-        CruiseSuggestion cruiseSuggestion = cruiseSuggestionService.getCruiseSuggestion(suggestion.getAirportCode(), departureDate, returnDate);
+        CruiseSuggestion cruiseSuggestion = cruiseSuggestionService.getCruiseSuggestion(suggestion.getAirportCodes().get(0), departureDate, returnDate);
 
         return new FlightSuggestion(flights.getPrice(), flights.getDepartureDate(),
-                new Airport(departureAirportCode, departureCity), new Airport(suggestion.getAirportCode(), suggestion.getCityName()), destinationDetails, cruiseSuggestion);
+                new Airport(departureAirportCode, departureCity), new Airport(suggestion.getAirportCodes().get(0), suggestion.getCityName()), destinationDetails, cruiseSuggestion);
     }
 
     @RequestMapping("/api/suggestion/getAirportInfo")
