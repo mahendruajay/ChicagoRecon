@@ -22,7 +22,7 @@ import java.util.TreeMap;
  * Created by anushasura on 12/1/15.
  */
 
-@Component
+@Component("flightSearchService")
 public class FlightSearchService {
 
     public static final String BASE_URL = "http://terminal2.expedia.com/x/mflights/search?";

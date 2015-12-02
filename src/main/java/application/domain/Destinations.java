@@ -428,25 +428,25 @@ public class Destinations {
 //      Prague, Czech Republic
         List<String> airportCodes18 = new ArrayList<>();
             airportCodes18.add("PRG"); // Not here
-        destinations.add(
-                new Destination("Prague" /*city*/,
-                        null /*state*/,
-                        "Czech Republic" /*country*/,
-                        airportCodes18,
-                        8 /*price*/,
-                        0 /*inUs*/,
-                        10 /*inEurope*/,
-                        0 /*beach*/,
-                        10 /*bigCity*/,
-                        8 /*historic*/,
-                        5 /*outdoorActivities*/,
-                        5 /*familyFriendly*/,
-                        10 /*entertainment*/,
-                        5 /*casinos*/,
-                        5 /*greatDining*/,
-                        0 /*warmDestination*/,
-                        3 /*romantic*/,
-                        0 /*cruises*/));
+//        destinations.add(
+//                new Destination("Prague" /*city*/,
+//                        null /*state*/,
+//                        "Czech Republic" /*country*/,
+//                        airportCodes18,
+//                        8 /*price*/,
+//                        0 /*inUs*/,
+//                        10 /*inEurope*/,
+//                        0 /*beach*/,
+//                        10 /*bigCity*/,
+//                        8 /*historic*/,
+//                        5 /*outdoorActivities*/,
+//                        5 /*familyFriendly*/,
+//                        10 /*entertainment*/,
+//                        5 /*casinos*/,
+//                        5 /*greatDining*/,
+//                        0 /*warmDestination*/,
+//                        3 /*romantic*/,
+//                        0 /*cruises*/));
 
 //      London, United Kingdom
         List<String> airportCodes19 = new ArrayList<>();

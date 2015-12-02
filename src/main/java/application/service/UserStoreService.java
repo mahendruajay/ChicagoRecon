@@ -1,11 +1,12 @@
 package application.service;
 
-import application.domain.RatedSuggestion;
-import application.domain.Selection;
-import application.domain.User;
-import application.domain.UserStore;
+import application.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by amahendru on 12/1/15.
@@ -15,6 +16,9 @@ public class UserStoreService {
 
     @Autowired
     private UserStore userStore;
+
+    @Autowired
+    ImageService imageService;
 
     public void storeUserResponse(RatedSuggestion ratedSuggestion) {
 
@@ -27,14 +31,36 @@ public class UserStoreService {
 
             User user = userStore.getUsers().get(userID);
 
-            Selection selection = new Selection(ratedSuggestion.getCityName(), ratedSuggestion.getPrice());
+            Selection selection = new Selection(ratedSuggestion.getDepartureCity(), ratedSuggestion.getArrivalCity(),
+                    ratedSuggestion.getDepartureDate(), ratedSuggestion.getArrivalDate(), ratedSuggestion.getPrice());
             if (ratedSuggestion.isLiked()) {
-                user.getLiked().put(ratedSuggestion.getCityName(), selection);
+                user.getLiked().put(ratedSuggestion.getArrivalCity(), selection);
             } else {
-                user.getDisliked().put(ratedSuggestion.getCityName(), selection);
+                user.getDisliked().put(ratedSuggestion.getArrivalCity(), selection);
             }
 
         }
 
+    }
+
+    public List<FlightSuggestion> getUserLikedHistory(String userID) {
+        List<Selection> selections = new ArrayList<>();
+        synchronized (userStore) {
+            Map<String, Selection> userSelections = userStore.getUsers().get(userID).getLiked();
+            for (Selection selection : userSelections.values()) {
+                selections.add(selection);
+            }
+        }
+        List<FlightSuggestion> flightSuggestions = new ArrayList<>();
+
+        for (Selection selection : selections) {
+            FlightSuggestion flightSuggestion = new FlightSuggestion(selection.getPrice(), selection.getDepartureDate(),
+                    new Airport("", selection.getDepartureCity()),
+                    new Airport("", selection.getArrivalCity()), null, null);
+
+            flightSuggestions.add(flightSuggestion);
+        }
+
+        return flightSuggestions;
     }
 }

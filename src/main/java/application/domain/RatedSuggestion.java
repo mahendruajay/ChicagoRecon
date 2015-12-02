@@ -6,16 +6,22 @@ package application.domain;
 public class RatedSuggestion {
 
     private String userId;
-    private String cityName;
+    private String arrivalCity;
+    private String departureCity;
+    private String departureDate;
+    private String arrivalDate;
     private boolean liked;
     private String price;
 
     public RatedSuggestion(){}
 
-    public RatedSuggestion(String userId, String cityName, boolean selected, String price) {
+    public RatedSuggestion(String userId, String arrivalCity, String departureCity, String departureDate, String arrivalDate, boolean liked, String price) {
         this.userId = userId;
-        this.cityName = cityName;
-        this.liked = selected;
+        this.arrivalCity = arrivalCity;
+        this.departureCity = departureCity;
+        this.departureDate = departureDate;
+        this.arrivalDate = arrivalDate;
+        this.liked = liked;
         this.price = price;
     }
 
@@ -23,8 +29,20 @@ public class RatedSuggestion {
         return userId;
     }
 
-    public String getCityName() {
-        return cityName;
+    public String getArrivalCity() {
+        return arrivalCity;
+    }
+
+    public String getDepartureCity() {
+        return departureCity;
+    }
+
+    public String getDepartureDate() {
+        return departureDate;
+    }
+
+    public String getArrivalDate() {
+        return arrivalDate;
     }
 
     public boolean isLiked() {

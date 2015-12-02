@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 
 @RestController
@@ -80,6 +81,14 @@ public class ApiController {
         return airportService.getAirportCode(lat, longt);
     }
 
+
+    @RequestMapping("/api/suggestion/userHistory")
+    public Airport getUserHistory(@RequestParam("userID") String userID) {
+
+
+        return userStoreService
+    }
+
     @RequestMapping(value = "/api/flightSearch", method = RequestMethod.GET)
     public Flights getFlights(@RequestParam("departureDate") String departureDate,
                               @RequestParam("departureAirport") String departureAirport,
@@ -90,5 +99,37 @@ public class ApiController {
         return flightSearchService.getFlights(departureDate, departureAirport, arrivalAirport, returnDate);
 
     }
+
+
+    @RequestMapping(value = "/api/cacheFlightSearch", method = RequestMethod.GET)
+    public String cacheFlightSearch(@RequestParam("departureDate") String departureDate,
+                                    @RequestParam("departureAirport") String departureAirport) {
+
+        DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ISO_DATE;
+
+        LocalDate depDate = LocalDate.parse(departureDate, DATE_FORMAT);
+        LocalDate returnDate = depDate.plusDays(7);
+
+        String retDate = returnDate.format(DATE_FORMAT);
+
+        List<Destination> destinations = new Destinations().getDestinations();
+
+        for (Destination destination : destinations) {
+
+            String arrivalAirportCode = destination.getAirportCodes().get(0);
+
+            System.out.println("Getting best flight price for destination: " + arrivalAirportCode + "," + destination.getCity());
+
+            flightSearchService.getFlights(departureDate, departureAirport, arrivalAirportCode, retDate);
+
+            System.out.println("Finished processing best flight price for destination: " + arrivalAirportCode + "," + destination.getCity());
+
+        }
+
+        return "success";
+
+    }
+
+
 }
 
