@@ -65,27 +65,28 @@ public class ApiController {
 
         Map<String, FlightSuggestion> flightSuggestions = new LinkedHashMap<>();
 
-        for (String str : strArray) {
 
-            Suggestion suggestionCurrent = destinationSuggestionService.getNextDestination(userID, departureAirportCity).get(str);
+        String depDate = departureDate.format(DATE_FORMAT);
+        String retDate = returnDate.format(DATE_FORMAT);
+        String displayDepDate = departureDate.format(DISPLAY_DATE_FORMAT);
+        String displayRetDate = returnDate.format(DISPLAY_DATE_FORMAT);
 
-            String depDate = departureDate.format(DATE_FORMAT);
-            String retDate = returnDate.format(DATE_FORMAT);
-            String displayDepDate = departureDate.format(DISPLAY_DATE_FORMAT);
-            String displayRetDate = returnDate.format(DISPLAY_DATE_FORMAT);
+        Map<String, Suggestion> suggestions = destinationSuggestionService.getNextDestination(userID, departureAirportCity);
 
-            Flights flights = flightSearchService.getFlights(depDate, departureAirportCode, suggestionCurrent.getAirportCodes().get(0), retDate);
+        for (String key : suggestions.keySet()) {
+            Suggestion suggestion = suggestions.get(key);
+
+            Flights flights = flightSearchService.getFlights(depDate, departureAirportCode, suggestion.getAirportCodes().get(0), retDate);
 
             DestinationDetails destinationDetails = new DestinationDetails();
 //            destinationDetails.setDestinationImages(imageService.getCityImages(suggestionCurrent.getCityName(), suggestionCurrent.getLabels(), 3));
 
-            CruiseSuggestion cruiseSuggestion = cruiseSuggestionService.getCruiseSuggestion(suggestionCurrent.getAirportCodes().get(0), departureDate, returnDate);
+            CruiseSuggestion cruiseSuggestion = cruiseSuggestionService.getCruiseSuggestion(suggestion.getAirportCodes().get(0), departureDate, returnDate);
 
             FlightSuggestion flightSuggestion = new FlightSuggestion(flights.getPrice(), flights.getDepartureDate(), flights.getReturnDate(),
-                    new Airport(departureAirportCode, departureAirportCity), new Airport(suggestionCurrent.getAirportCodes().get(0),
-                    suggestionCurrent.getCityName()), destinationDetails, cruiseSuggestion, displayDepDate, displayRetDate);
-            flightSuggestions.put(str, flightSuggestion);
-
+                    new Airport(departureAirportCode, departureAirportCity), new Airport(suggestion.getAirportCodes().get(0),
+                    suggestion.getCityName()), destinationDetails, cruiseSuggestion, displayDepDate, displayRetDate);
+            flightSuggestions.put(key, flightSuggestion);
         }
 
 
