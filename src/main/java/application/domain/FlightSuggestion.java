@@ -6,18 +6,25 @@ package application.domain;
 public class FlightSuggestion {
     private String price;
     private String departureDate;
+    private String returnDate;
     private Airport originAirport;
     private Airport destinationAirport;
     private DestinationDetails destinationDetails;
     private CruiseSuggestion cruiseSuggestion;
+    private String displayDepartureDate;
+    private String displayReturnDate;
 
-    public FlightSuggestion(String price, String departureDate, Airport originAirport, Airport destinationAirport, DestinationDetails destinationDetails, CruiseSuggestion cruiseSuggestion) {
+    public FlightSuggestion(String price, String departureDate, String returnDate, Airport originAirport, Airport destinationAirport, DestinationDetails destinationDetails, CruiseSuggestion cruiseSuggestion,
+                            String displayDepartureDate, String displayReturnDate) {
         this.price = price;
         this.departureDate = departureDate;
+        this.returnDate = returnDate;
         this.originAirport = originAirport;
         this.destinationAirport = destinationAirport;
         this.destinationDetails = destinationDetails;
         this.cruiseSuggestion = cruiseSuggestion;
+        this.displayDepartureDate = displayDepartureDate;
+        this.displayReturnDate = displayReturnDate;
     }
 
     public String getPrice() {
@@ -26,6 +33,10 @@ public class FlightSuggestion {
 
     public String getDepartureDate() {
         return departureDate;
+    }
+
+    public String getReturnDate() {
+        return returnDate;
     }
 
     public Airport getOriginAirport() {
@@ -42,5 +53,13 @@ public class FlightSuggestion {
 
     public CruiseSuggestion getCruiseSuggestion() {
         return cruiseSuggestion;
+    }
+
+    public String getDisplayDepartureDate() {
+        return displayDepartureDate;
+    }
+
+    public String getDisplayReturnDate() {
+        return displayReturnDate;
     }
 }

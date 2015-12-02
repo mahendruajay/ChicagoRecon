@@ -66,13 +66,13 @@ public class DestinationSuggestionServiceTest {
 //        5 /*cruises*/
 
 
-        List<String> cities = new ArrayList<>();
-        cities.add("London");
-        cities.add("Hong Kong");
-
-        Suggestion result = service.getNextDestination("someUser", "origin");
-
-        log.info(result.getCityName());
+//        List<String> cities = new ArrayList<>();
+//        cities.add("London");
+//        cities.add("Hong Kong");
+//
+//        Suggestion result = service.getNextDestination("someUser", "origin", "here");
+//
+//        log.info(result.getCityName());
     }
 
 }
