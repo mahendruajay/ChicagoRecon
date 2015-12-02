@@ -17,8 +17,9 @@ application.RateRoute = Ember.Route.extend({
 				method: "GET",
 				data: {
 					user: params.user,
-					origin: airport.code,
-					date: "now" // TODO
+					departureAirportCode: airport.code,
+					departureAirportCity: airport.city,
+					departureDate: "2016-02-23" // TODO
 				},
 				dataType: "json"
 			});
