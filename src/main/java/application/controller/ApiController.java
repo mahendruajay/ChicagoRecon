@@ -94,12 +94,12 @@ public class ApiController {
     }
 
 
-    @RequestMapping("/api/suggestion/userHistory")
-    public Airport getUserHistory(@RequestParam("userID") String userID) {
-
-
-        return userStoreService
-    }
+//    @RequestMapping("/api/suggestion/userHistory")
+//    public Airport getUserHistory(@RequestParam("userID") String userID) {
+//
+//
+////        return userStoreService
+//    }
 
     @RequestMapping(value = "/api/flightSearch", method = RequestMethod.GET)
     public Flights getFlights(@RequestParam("departureDate") String departureDate,
@@ -142,9 +142,6 @@ public class ApiController {
 
     }
 
-
-}
-
     @RequestMapping(value = "/api/flight/search", method = RequestMethod.GET)
     public ModelAndView DeepLinkURL(@RequestParam("startDate") String startDate,
                                     @RequestParam("returnDate") String returnDate,
@@ -161,4 +158,6 @@ public class ApiController {
         return new ModelAndView("redirect:" + redirectUrl);
 
     }
+
+
 }
