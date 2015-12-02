@@ -75,7 +75,7 @@ public class FlightSearchService {
             jobject = jarray.get(i).getAsJsonObject();
             String price = jobject.get("totalFare").getAsString();
             priceList.add(price);
-            String legIds = jobject.getAsJsonArray("legIds").getAsString();
+            String legIds = jobject.getAsJsonArray("legIds").toString();
             int NumberOfLegIds = jobject.getAsJsonArray("legIds").size();
 
             if (m.containsKey(price)) {
