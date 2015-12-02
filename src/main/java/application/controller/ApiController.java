@@ -16,6 +16,7 @@ import java.time.format.DateTimeFormatter;
 public class ApiController {
 
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ISO_DATE;
+    private static final DateTimeFormatter DISPLAY_DATE_FORMAT = DateTimeFormatter.ofPattern("MMM. dd");
 
     @Autowired
     private AirportService airportService;
@@ -61,6 +62,8 @@ public class ApiController {
 
         String depDate = departureDate.format(DATE_FORMAT);
         String retDate = returnDate.format(DATE_FORMAT);
+        String displayDepDate = departureDate.format(DISPLAY_DATE_FORMAT);
+        String displayRetDate = returnDate.format(DISPLAY_DATE_FORMAT);
 
         Flights flights = flightSearchService.getFlights(depDate, departureAirportCode, suggestion.getAirportCodes().get(0), retDate);
 
@@ -69,8 +72,9 @@ public class ApiController {
 
         CruiseSuggestion cruiseSuggestion = cruiseSuggestionService.getCruiseSuggestion(suggestion.getAirportCodes().get(0), departureDate, returnDate);
 
-        return new FlightSuggestion(flights.getPrice(), flights.getDepartureDate(),
-                new Airport(departureAirportCode, departureAirportCity), new Airport(suggestion.getAirportCodes().get(0), suggestion.getCityName()), destinationDetails, cruiseSuggestion);
+        return new FlightSuggestion(flights.getPrice(), flights.getDepartureDate(), flights.getReturnDate(),
+                new Airport(departureAirportCode, departureAirportCity), new Airport(suggestion.getAirportCodes().get(0),
+                suggestion.getCityName()), destinationDetails, cruiseSuggestion, displayDepDate, displayRetDate);
     }
 
     @RequestMapping("/api/suggestion/getAirportInfo")

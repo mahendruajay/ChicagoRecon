@@ -16,7 +16,9 @@
 								<img src="http://farm6.static.flickr.com/5656/23421485796_0fe17b6279.jpg" alt="">
 								<div class="carousel-caption">
 									<h3>{{suggestion.destinationAirport.city}}</h3>
-									<p><a href="#">Flight Link</a></p>
+									<h4>{{suggestion.displayDepartureDate}} - {{suggestion.displayReturnDate}}</h4>
+									<h3>${r"$"}{{suggestion.price}}</h3>
+									<p><a class="btn btn-warning" href="/api/flight/search?startDate={{suggestion.departureDate}}&returnDate={{suggestion.returnDate}}&FromAirport={{suggestion.originAirport.code}}&&ToAirport={{suggestion.destinationAirport.code}}">Book</a></p>
 								</div>
 							</div>
 						{{/each}}

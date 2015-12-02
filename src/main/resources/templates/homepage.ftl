@@ -71,6 +71,8 @@
 						<img src="http://farm6.static.flickr.com/5656/23421485796_0fe17b6279.jpg" alt="">
 						<div class="carousel-caption">
 							<h3>Los Angeles</h3>
+							<h4>Dec 27 - Jan 3</h4>
+							<h3>$140</h3>
 							<p><a class="btn btn-warning" href="https://www.expedia.com/Flights-Search?trip=roundtrip&leg1=from:Chicago,%20IL,%20United%20States%20%28ORD-O%27Hare%20Intl.%29,to:Austin,%20TX,%20United%20States%20%28AUS-Austin-Bergstrom%20Intl.%29,departure:12/31/2015TANYT&leg2=from:Austin,%20TX,%20United%20States%20%28AUS-Austin-Bergstrom%20Intl.%29,to:Chicago,%20IL,%20United%20States%20%28ORD-O%27Hare%20Intl.%29,departure:01/01/2016TANYT&passengers=children:0,adults:1,seniors:0,infantinlap:N&mode=search">Book</a></p>
 						</div>
 					</div>
@@ -79,6 +81,8 @@
 						<img src="http://farm6.static.flickr.com/5656/23421485796_0fe17b6279.jpg" alt="">
 						<div class="carousel-caption">
 							<h3>Boston</h3>
+                            <h4>Dec 27 - Jan 3</h4>
+                            <h3>$140</h3>
 							<p><a class="btn btn-warning" href="https://www.expedia.com/Flights-Search?trip=roundtrip&leg1=from:Chicago,%20IL,%20United%20States%20%28ORD-O%27Hare%20Intl.%29,to:Austin,%20TX,%20United%20States%20%28AUS-Austin-Bergstrom%20Intl.%29,departure:12/31/2015TANYT&leg2=from:Austin,%20TX,%20United%20States%20%28AUS-Austin-Bergstrom%20Intl.%29,to:Chicago,%20IL,%20United%20States%20%28ORD-O%27Hare%20Intl.%29,departure:01/01/2016TANYT&passengers=children:0,adults:1,seniors:0,infantinlap:N&mode=search">Book</a></p>
 						</div>
 					</div>
