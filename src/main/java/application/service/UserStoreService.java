@@ -55,8 +55,9 @@ public class UserStoreService {
 
         for (Selection selection : selections) {
             FlightSuggestion flightSuggestion = new FlightSuggestion(selection.getPrice(), selection.getDepartureDate(),
+                    selection.getArrivalDate(),
                     new Airport("", selection.getDepartureCity()),
-                    new Airport("", selection.getArrivalCity()), null, null);
+                    new Airport("", selection.getArrivalCity()), null, null, "", "");
 
             flightSuggestions.add(flightSuggestion);
         }
