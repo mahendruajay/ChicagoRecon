@@ -53,13 +53,18 @@ public class ApiController {
     public FlightSuggestion getFlight(@RequestParam("user") String userID,
                                       @RequestParam("departureAirportCode") String departureAirportCode,
                                       @RequestParam("departureAirportCity") String departureAirportCity,
-                                      @RequestParam("departureDate") String date) {
+                                      @RequestParam("departureDate") String date,
+                                      @RequestParam(value="currentlyShowing", required=false) String currentlyShowing) {
 
         // The imageService and cruiseSuggestionService calls should happen from withing the flightSuggestionService, but for now are here
         LocalDate departureDate = LocalDate.parse(date, DATE_FORMAT);
         LocalDate returnDate = departureDate.plusDays(7);
 
-        Suggestion suggestion = destinationSuggestionService.getNextDestination(userID, departureAirportCity);
+        //TODO: Return entire result, not just suggested...
+        if(currentlyShowing == null){
+            currentlyShowing = "Seattle";
+        }
+        Suggestion suggestion = destinationSuggestionService.getNextDestination(userID, departureAirportCity, currentlyShowing).get("suggested");
 
         String depDate = departureDate.format(DATE_FORMAT);
         String retDate = returnDate.format(DATE_FORMAT);
