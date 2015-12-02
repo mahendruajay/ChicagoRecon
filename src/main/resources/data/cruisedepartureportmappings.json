@@ -7,10 +7,5 @@
   "HNL" : "honolulu-hawaii",
   "MIA" : "miami-florida",
   "BOS" : "boston-massachusetts",
-  "LAX" : "los-angeles-california",
-  "BCA" : "london-tilbury-united-kingdom",
-  "BCN" : "barcelona-spain",
-  "HKG" : "hong-kong",
-  "SYD" : "sydney-australia",
-  "SNS" : "sydney-australia"
+  "LAX" : "los-angeles-california"
 }
