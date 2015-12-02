@@ -77,5 +77,7 @@ public class Destination {
 
     public String getCountry() { return country; }
 
+    public List<String> getAirportCodes() { return airportCodes; }
+
     public List<Integer> getFeatures(){ return features; }
 }

@@ -8,12 +8,12 @@ import java.util.List;
 public class Suggestion {
 
     private String cityName;
-    private String airportCode;
+    private List<String> airportCodes;
     private List<String> labels;
 
-    public Suggestion(String cityName, String airportCode, List<String> labels) {
+    public Suggestion(String cityName, List<String> airportCodes, List<String> labels) {
         this.cityName = cityName;
-        this.airportCode = airportCode;
+        this.airportCodes = airportCodes;
         this.labels = labels;
     }
 
@@ -21,8 +21,8 @@ public class Suggestion {
         return cityName;
     }
 
-    public String getAirportCode() {
-        return airportCode;
+    public List<String> getAirportCodes() {
+        return airportCodes;
     }
 
     public List<String> getLabels() {
