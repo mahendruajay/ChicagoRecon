@@ -38,7 +38,7 @@ public class DestinationSuggestionService {
             user = userStore.getUsers().get(userId);
         }
 
-        if(user != null && user.getLiked().keySet().size() == 0 && user.getDisliked().keySet().size() == 0){
+        if(user != null && (user.getLiked().keySet().size() > 0 || user.getDisliked().keySet().size() > 0)){
             //this user has some rating history
             List<Integer> userLikeAveragePoint = createUserAverage(user.getLiked());
             List<Integer> userDislikeAveragePoint = createUserAverage(user.getDisliked());
@@ -101,7 +101,7 @@ public class DestinationSuggestionService {
     }
 
     public List<Integer> createUserAverage(Map<String, Selection> cities){
-        int numberOfFeatures = destinations.getDestinationByName("London").getFeatures().size();
+        int numberOfFeatures = destinations.getDestinationByName("Austin").getFeatures().size();
         List<Integer> point = new ArrayList<>(Collections.nCopies(numberOfFeatures, 0));
 
         //get Destination version of cities
@@ -134,7 +134,7 @@ public class DestinationSuggestionService {
 
         for(String city: distNewToLikedPoints.keySet()){
             //We want a minimum netWeight for our best suggestion. Consider liked more than disliked.
-            Double netWeight = distNewToLikedPoints.get(city) - (0.5 * distNewToDislikedPoints.get(city));
+            Double netWeight = distNewToLikedPoints.get(city) - (0.4 * distNewToDislikedPoints.get(city));
             netDists.put(city, netWeight);
         }
 
@@ -155,8 +155,9 @@ public class DestinationSuggestionService {
         Double distance = 0.0;
 
         for(int feature = 0; feature < pt1.size(); feature++){
-            Math.pow(pt1.get(feature) - pt2.get(feature), 2);
+            distance += Math.pow(pt1.get(feature) - pt2.get(feature), 2);
         }
-        return 0.0;
+
+        return Math.pow(distance, 0.5);
     }
 }
