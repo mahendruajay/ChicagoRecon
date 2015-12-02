@@ -13,7 +13,10 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Response;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.TreeMap;
 
 /**
  * Created by anushasura on 12/1/15.
@@ -52,7 +55,7 @@ public class FlightSearchService {
         String legId = legIdAndPrice.split("!")[0];
         String price = legIdAndPrice.split("!")[1];
 
-        flights = new Flights("2015-12-28", "LAS", "SEA", "2015-12-30", legId, price);
+        flights = new Flights(departureDate, destinationAirport, originAirport, returnDate, legId, price);
 
         serviceCache.cacheFlights(key, flights);
 
@@ -70,9 +73,9 @@ public class FlightSearchService {
 
         for(int i = 0, size = jarray.size(); i < size; i++) {
             jobject = jarray.get(i).getAsJsonObject();
-            String price = jobject.get("totalFare").toString();
+            String price = jobject.get("totalFare").getAsString();
             priceList.add(price);
-            String legIds = jobject.getAsJsonArray("legIds").toString();
+            String legIds = jobject.getAsJsonArray("legIds").getAsString();
             int NumberofLegIds = jobject.getAsJsonArray("legIds").size();
 
             if (m.containsKey(price)) {

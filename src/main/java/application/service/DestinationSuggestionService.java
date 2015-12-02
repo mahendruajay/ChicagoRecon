@@ -85,7 +85,7 @@ public class DestinationSuggestionService {
     private List<String> getSpecialLabels(Destination destination){
         List<String> topLabels = new ArrayList<>();
         List<Integer> features = destination.getFeatures();
-        if(features.get(4) > 7) {
+        if(features.get(3) > 7) {
             topLabels.add("Great Beaches");
         }
         if(features.get(7) > 7) {
