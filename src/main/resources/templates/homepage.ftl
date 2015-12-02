@@ -52,6 +52,11 @@
 			top: 5%;
 			z-index: 10;
 		}
+
+		.carousel-inner > .item > img {
+			height: 100%;
+			object-fit: cover;
+		}
 	</style>
 </head>
 <body>

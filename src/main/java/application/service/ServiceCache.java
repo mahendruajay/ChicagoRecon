@@ -7,6 +7,8 @@ import com.google.common.base.Joiner;
 import jersey.repackaged.com.google.common.collect.Lists;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -33,6 +35,24 @@ public class ServiceCache {
         return Joiner.on(",").join(Lists.newArrayList(departureDate, originAirport, destinationAirport, returnDate));
     }
 
+    public Airport getAirport(String key) {
+        return airportMap.get(key);
+    }
+
+    public void cacheAirport(String key, Airport airport) {
+        airportMap.put(key, airport);
+    }
+
+    public String generateAirportCacheKey(Double latitude, Double longitude) {
+        BigDecimal latitudeRounded = new BigDecimal(latitude);
+        latitudeRounded = latitudeRounded.setScale(2, RoundingMode.HALF_UP);
+
+        BigDecimal longitudeRounded = new BigDecimal(longitude);
+        longitudeRounded = longitudeRounded.setScale(2, RoundingMode.HALF_UP);
+
+        return Joiner.on(",").join(Lists.newArrayList(latitudeRounded.toString(), longitudeRounded.toString()));
+    }
+
     public CruiseSuggestion getCruiseSuggestion(String key) {
         return cruiseSuggestionMap.get(key);
     }
@@ -41,7 +61,7 @@ public class ServiceCache {
         cruiseSuggestionMap.put(key, cruiseSuggestion);
     }
 
-    public String generateCruiseSuggestionKey(String destinationAirportCode, LocalDate departureDate, LocalDate returnDate) {
+    public String generateCruiseSuggestionCacheKey(String destinationAirportCode, LocalDate departureDate, LocalDate returnDate) {
         List<String> keys = Lists.newArrayList(destinationAirportCode, departureDate.toString(), returnDate.toString());
 
         return Joiner.on(",").join(keys);
