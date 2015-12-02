@@ -101,7 +101,7 @@ application.RateController = Ember.Controller.extend({
 				controller.set('suggestions', [newSuggestion]);
 				
 				controller.preLoadNextSuggestion();
-			}, 1000);
+			}, 600);
 		},
 		dislike: function() {
 			var controller = this;
@@ -118,7 +118,7 @@ application.RateController = Ember.Controller.extend({
 				controller.set('suggestions', [newSuggestion]);
 				
 				controller.preLoadNextSuggestion();
-			}, 1000);
+			}, 600);
 		}
 	},
 	
