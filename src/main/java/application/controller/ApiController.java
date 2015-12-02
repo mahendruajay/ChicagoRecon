@@ -55,17 +55,11 @@ public class ApiController {
     public Map<String, FlightSuggestion> getFlight(@RequestParam("user") String userID,
                                       @RequestParam("departureAirportCode") String departureAirportCode,
                                       @RequestParam("departureAirportCity") String departureAirportCity,
-                                      @RequestParam("departureDate") String date,
-                                      @RequestParam(value="currentlyShowing", required=false) String currentlyShowing) {
+                                      @RequestParam("departureDate") String date) {
 
         // The imageService and cruiseSuggestionService calls should happen from withing the flightSuggestionService, but for now are here
         LocalDate departureDate = LocalDate.parse(date, DATE_FORMAT);
         LocalDate returnDate = departureDate.plusDays(7);
-
-        //TODO: Return entire result, not just suggested...
-        if(currentlyShowing == null){
-            currentlyShowing = "Seattle";
-        }
 
         String[] strArray = {"suggested", "followingIfLiked", "followingIfDisliked"};
 
@@ -73,7 +67,7 @@ public class ApiController {
 
         for (String str : strArray) {
 
-            Suggestion suggestionCurrent = destinationSuggestionService.getNextDestination(userID, departureAirportCity, currentlyShowing).get(str);
+            Suggestion suggestionCurrent = destinationSuggestionService.getNextDestination(userID, departureAirportCity).get(str);
 
             String depDate = departureDate.format(DATE_FORMAT);
             String retDate = returnDate.format(DATE_FORMAT);

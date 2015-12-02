@@ -21,9 +21,9 @@ public class DestinationSuggestionService {
         destinations = new Destinations();
     }
 
-    public Map<String, Suggestion> getNextDestination(String user, String origin, String currentlyShowing){
+    public Map<String, Suggestion> getNextDestination(String user, String origin){
 
-        Map<String, Destination> nextPlace = determineNextDestination(user, origin, currentlyShowing);
+        Map<String, Destination> nextPlace = determineNextDestination(user, origin);
         Map<String, Suggestion> retVal = new HashMap<>();
         retVal.put("suggested",
                 new Suggestion(nextPlace.get("suggested").getCity(), nextPlace.get("suggested").getAirportCodes(), getSpecialLabels(nextPlace.get("suggested")))
@@ -41,7 +41,7 @@ public class DestinationSuggestionService {
         this.userStore = userStore;
     }
 
-    private Map<String, Destination> determineNextDestination(String userId, String origin, String currentlyShowing){
+    private Map<String, Destination> determineNextDestination(String userId, String origin){
 
         User user = null;
         if(userStore.getUsers().containsKey(userId)){
@@ -55,7 +55,6 @@ public class DestinationSuggestionService {
             List<String> alreadyVisited = new ArrayList<>();
             alreadyVisited.addAll(user.getLiked().keySet());
             alreadyVisited.addAll(user.getDisliked().keySet());
-            alreadyVisited.add(currentlyShowing);
 
             //if already viewed all, show a liked destination again
             if(alreadyVisited.size() == destinations.getDestinations().size()){
@@ -118,7 +117,7 @@ public class DestinationSuggestionService {
                 //TODO: if we consider price, we'll need to change 0 to reflect the price of currently showing
                 futureUserLiked.put(liked, new Selection(null, null, null, null, "0"));
             }
-            futureUserLiked.put(currentlyShowing, new Selection(null, null, null, null, "0"));
+            futureUserLiked.put(bestNextCity, new Selection(null, null, null, null, "0"));
 
             List<Integer> userLikeAveragePointAfterLikingSuggested = createUserAverage(futureUserLiked);
             List<Integer> userDislikeAveragePointAfterLikingSuggested = createUserAverage(user.getDisliked());
@@ -143,7 +142,7 @@ public class DestinationSuggestionService {
                 //TODO: if we consider price, we'll need to change 0 to reflect the price of currently showing
                 futureUserDisliked.put(disliked, new Selection(null, null, null, null, "0"));
             }
-            futureUserDisliked.put(currentlyShowing, new Selection(null, null, null, null, "0"));
+            futureUserDisliked.put(bestNextCity, new Selection(null, null, null, null, "0"));
 
             List<Integer> userLikeAveragePointAfterDislikingSuggested = createUserAverage(user.getLiked());
             List<Integer> userDislikeAveragePointAfterDislikingSuggested = createUserAverage(futureUserDisliked);
@@ -238,6 +237,8 @@ public class DestinationSuggestionService {
         destinations.getDestinations().forEach(d -> {
             if(!alreadyVisited.contains(d.getCity())) {
                 distPointToNewDests.put(d.getCity(), distance(point, d.getFeatures()));
+            } else {
+                distPointToNewDests.put(d.getCity(), 1000000.0);
             }
         });
         return distPointToNewDests;
