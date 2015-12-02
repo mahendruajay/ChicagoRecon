@@ -12,7 +12,7 @@
 					<!-- Wrapper for slides -->
 					<div class="carousel-inner" role="listbox">
 						{{#each suggestions as |suggestion|}}
-							<div id="suggestion-{{suggestion.id}}" class="item {{if suggestion.active "active"}}">
+							<div class="item {{if suggestion.active "active"}}">
 								<img src="/static/assets/{{suggestion.destinationAirport.code}}.jpg" alt="">
 								<div class="carousel-caption">
 									<h3>{{suggestion.destinationAirport.city}}</h3>
