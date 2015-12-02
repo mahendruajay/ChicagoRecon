@@ -22,11 +22,11 @@
 						{{/each}}
 					</div>
 					<!-- Controls -->
-					<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+					<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev" {{action 'dislike'}}>
 						<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 						<span class="sr-only">Dislike</span>
 					</a>
-					<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+					<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next" {{action 'like'}}>
 						<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
 						<span class="sr-only">Heart</span>
 					</a>

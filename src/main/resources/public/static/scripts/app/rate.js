@@ -67,6 +67,33 @@ application.RateController = Ember.Controller.extend({
 	
 	nextId: 0,
 	
+	actions: {
+		like: function() {
+			var controller = this;
+		
+			setTimeout(function() {
+				var suggestions = controller.get('suggestions');
+				var newSuggestion = suggestions[2];
+				newSuggestion.active=true;
+				controller.set('suggestions', [newSuggestion]);
+				
+				controller.preLoadNextSuggestion();
+			}, 1000);
+		},
+		dislike: function() {
+			var controller = this;
+		
+			setTimeout(function() {
+				var suggestions = controller.get('suggestions');
+				var newSuggestion = suggestions[0];
+				newSuggestion.active=true;
+				controller.set('suggestions', [newSuggestion]);
+				
+				controller.preLoadNextSuggestion();
+			}, 1000);
+		}
+	},
+	
 	suggestions: function() {
 		var suggestion = this.get('model.suggestion');
 		suggestion.active = true;
