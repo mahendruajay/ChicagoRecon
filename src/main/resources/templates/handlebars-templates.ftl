@@ -15,6 +15,8 @@
 						{{#each suggestions as |suggestion|}}
 							<div id="suggestion-{{suggestion.id}}" class="item {{if suggestion.active "active"}}">
 								<img class="background" src="/static/assets/{{suggestion.destinationAirport.code}}.jpg" alt="{{suggestion.destinationAirport.city}}">
+								<div class="bottom-overlay">
+								</div>
 								<div class="carousel-caption">
 									<h2>{{suggestion.destinationAirport.city}}</h2>
 									<h4>{{suggestion.displayDepartureDate}} - {{suggestion.displayReturnDate}}</h4>
@@ -45,8 +47,6 @@
 							<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
 							<span class="sr-only">Heart</span>
 						</a>
-					</div>
-					<div class="bottom-overlay">
 					</div>
 				</div>
 				<!--end-->
