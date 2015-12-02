@@ -30,14 +30,14 @@ public class CruiseSuggestionService {
 
     private static Map<String, String> airportCodeToDeparturePortMap = null;
 
-    public CruiseSuggestion getCruiseSuggestion(String city, LocalDate departureDate, LocalDate returnDate) {
+    public CruiseSuggestion getCruiseSuggestion(String destinationAirportCode, LocalDate departureDate, LocalDate returnDate) {
         LocalDate earliestDepartureDate = departureDate.plusDays(1);
         LocalDate latestDepartureDate = returnDate.minusDays(2);
         String earliestDeparture = DATE_FORMAT.print(earliestDepartureDate);
         String latestDeparture = DATE_FORMAT.print(latestDepartureDate);
 
         try {
-            String departurePort = getDeparturePort(city);
+            String departurePort = getDeparturePort(destinationAirportCode);
             if (departurePort == null) {
                 return null;
             }
@@ -67,7 +67,7 @@ public class CruiseSuggestionService {
         return null;
     }
 
-    private String getDeparturePort(String city) throws IOException {
+    private String getDeparturePort(String destinationAirportCode) throws IOException {
         if (airportCodeToDeparturePortMap == null) {
             InputStream inputStream = this.getClass().getResourceAsStream("/data/cruisedepartureportmappings.json");
             ObjectMapper mapper = new ObjectMapper();
@@ -75,6 +75,6 @@ public class CruiseSuggestionService {
             });
         }
 
-        return airportCodeToDeparturePortMap.get(city);
+        return airportCodeToDeparturePortMap.get(destinationAirportCode);
     }
 }
