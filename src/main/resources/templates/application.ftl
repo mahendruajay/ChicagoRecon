@@ -62,6 +62,7 @@
 			top: 10%;
 			left: 10%;
 			text-align: left;
+			text-shadow: 1px 1px 5px black;
 		}
 		.explore a, .explore a:hover{
 			color: #ffffff;
