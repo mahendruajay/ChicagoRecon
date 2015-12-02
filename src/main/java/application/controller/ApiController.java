@@ -83,7 +83,7 @@ public class ApiController {
             Flights flights = flightSearchService.getFlights(depDate, departureAirportCode, suggestionCurrent.getAirportCodes().get(0), retDate);
 
             DestinationDetails destinationDetails = new DestinationDetails();
-            destinationDetails.setDestinationImages(imageService.getCityImages(suggestionCurrent.getCityName(), suggestionCurrent.getLabels(), 3));
+//            destinationDetails.setDestinationImages(imageService.getCityImages(suggestionCurrent.getCityName(), suggestionCurrent.getLabels(), 3));
 
             CruiseSuggestion cruiseSuggestion = cruiseSuggestionService.getCruiseSuggestion(suggestionCurrent.getAirportCodes().get(0), departureDate, returnDate);
 
