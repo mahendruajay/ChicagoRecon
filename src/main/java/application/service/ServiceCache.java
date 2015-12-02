@@ -8,6 +8,7 @@ import jersey.repackaged.com.google.common.collect.Lists;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,9 +17,9 @@ import java.util.Map;
  */
 @Component
 public class ServiceCache {
-    private static Map<String, Flights> flightsMap;
-    private static Map<String, Airport> airportMap;
-    private static Map<String, CruiseSuggestion> cruiseSuggestionMap;
+    private static Map<String, Flights> flightsMap = new HashMap<>();
+    private static Map<String, Airport> airportMap = new HashMap<>();
+    private static Map<String, CruiseSuggestion> cruiseSuggestionMap = new HashMap<>();
 
     public Flights getFlights(String key) {
         return flightsMap.get(key);
