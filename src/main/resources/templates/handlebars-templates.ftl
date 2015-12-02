@@ -19,6 +19,18 @@
 									<h4>{{suggestion.displayDepartureDate}} - {{suggestion.displayReturnDate}}</h4>
 									<h2>${r"$"}{{suggestion.price}}</h2>
 									<a class="btn btn-success" href="/wallet?user={{model.user}}">View Wallet</a>
+									<div class="book-and-explore">
+										<div class="book-inner">
+											<a target="_blank" class="btn btn-warning" href="/api/flight/search?startDate={{suggestion.departureDate}}&returnDate={{suggestion.returnDate}}&FromAirport={{suggestion.originAirport.code}}&&ToAirport={{suggestion.destinationAirport.code}}">Book</a>
+										</div>
+										<div class="explore-inner">
+											{{#if suggestion.cruiseSuggestion}}
+												<span class="explore">
+													<a target="_blank" href="{{suggestion.cruiseSuggestion.cruiseSearchDeepLink}}">Explore Cruise deals departing from {{suggestion.destinationAirport.city}}</a>
+												</span>
+											{{/if}}
+										</div>
+									</div>
 								</div>
 							</div>
 						{{/each}}
@@ -29,7 +41,6 @@
 							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 							<span class="sr-only">Dislike</span>
 						</a>
-						<a class="btn btn-warning" href="/api/flight/search?startDate={{suggestion.departureDate}}&returnDate={{suggestion.returnDate}}&FromAirport={{suggestion.originAirport.code}}&&ToAirport={{suggestion.destinationAirport.code}}">Book</a>
 						<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next" {{action 'like'}}>
 							<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
 							<span class="sr-only">Heart</span>

@@ -36,10 +36,10 @@
 			top: 85%;
 		}
 		.glyphicon-remove {
-			left: 20%;
+			left: 25%;
 		}
         .glyphicon-heart {
-            right: 20%;
+            right: 25%;
         }
 		.carousel-control .glyphicon-remove,
 		.carousel-control .glyphicon-heart,
@@ -63,16 +63,28 @@
 			left: 10%;
 			text-align: left;
 		}
-		.btn-warning {
-			position: absolute;
-			top: 85%;
-			left: 45%;
+		.explore a, .explore a:hover{
+			color: #ffffff;
+			text-decoration: none;
 		}
-
+		.book-and-explore {
+            position: absolute;
+            top: 85%;
+            left: 45%;
+		}
         .btn-success {
             position: absolute;
             top: 5%;
             left: 85%;
+        }
+		.explore-inner {
+			position: relative;
+			left: -40%;
+            display: block;
+            text-align: center;
+		}
+        .book-inner {
+            left: -50%;
         }
 		h2 {
 			font-size: 3em;
