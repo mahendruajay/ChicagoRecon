@@ -42,10 +42,39 @@ public class DestinationSuggestionService {
             //this user has some rating history
             List<Integer> userLikeAveragePoint = createUserAverage(user.getLiked());
             List<Integer> userDislikeAveragePoint = createUserAverage(user.getDisliked());
+            List<String> alreadyVisited = new ArrayList<>();
+            alreadyVisited.addAll(user.getLiked().keySet());
+            alreadyVisited.addAll(user.getDisliked().keySet());
 
+            //if already viewed all, show a liked destination again
+            if(alreadyVisited.size() == destinations.getDestinations().size()){
+                Random rn = new Random();
+                List<String> liked = new ArrayList<>();
+                liked.addAll(user.getLiked().keySet());
+                if(liked.size() > 0) {
+                    return destinations.getDestinationByName(liked.get(rn.nextInt(liked.size())));
+                } else {
+                    //TODO: fix this path later
+                    return destinations.getDestinationByName("London");
+                }
+            }
+
+            //at least one destination is remaining
+            Map<String, Double> distNewToLikedPoints = distancesPointToNewDestinations(userLikeAveragePoint, alreadyVisited);
+            Map<String, Double> distNewToDislikedPoints = distancesPointToNewDestinations(userDislikeAveragePoint, alreadyVisited);
+            Map<String, Double> cityNetDist = findNetDists(distNewToLikedPoints, distNewToDislikedPoints);
+
+            Double minDistance = 1000000.0;
+            String bestNextCity = "";
+            for(String city : cityNetDist.keySet()){
+                if(cityNetDist.get(city) < minDistance){
+                    minDistance = cityNetDist.get(city);
+                    bestNextCity = city;
+                }
+            }
 
             //for now, always say London
-            return destinations.getDestinationByName("London");
+            return destinations.getDestinationByName(bestNextCity);
         } else{
             //user has no rating history, show a random destination
             Random rn = new Random();
@@ -84,7 +113,6 @@ public class DestinationSuggestionService {
             }
         }
 
-
         for(Destination d : cityDestinations){
             for(int feature = 0; feature < numberOfFeatures; feature++){
                 point.set(feature, point.get(feature) + d.getFeatures().get(feature));
@@ -101,10 +129,26 @@ public class DestinationSuggestionService {
         return point;
     }
 
-    private Map<String, Double> distancesPointToDestinations(List<Integer> point){
-        Map<String, Double> distPointToDests = new HashMap<>();
-        destinations.getDestinations().forEach(d -> distPointToDests.put(d.getCity(), distance(point, d.getFeatures())));
-        return distPointToDests;
+    private Map<String, Double> findNetDists(Map<String, Double> distNewToLikedPoints, Map<String, Double> distNewToDislikedPoints){
+        Map<String, Double> netDists = new HashMap<>();
+
+        for(String city: distNewToLikedPoints.keySet()){
+            //We want a minimum netWeight for our best suggestion. Consider liked more than disliked.
+            Double netWeight = distNewToLikedPoints.get(city) - (0.5 * distNewToDislikedPoints.get(city));
+            netDists.put(city, netWeight);
+        }
+
+        return netDists;
+    }
+
+    private Map<String, Double> distancesPointToNewDestinations(List<Integer> point, List<String> alreadyVisited){
+        Map<String, Double> distPointToNewDests = new HashMap<>();
+        destinations.getDestinations().forEach(d -> {
+            if(!alreadyVisited.contains(d.getCity())) {
+                distPointToNewDests.put(d.getCity(), distance(point, d.getFeatures()));
+            }
+        });
+        return distPointToNewDests;
     }
 
     private Double distance(List<Integer> pt1, List<Integer>pt2){
