@@ -97,7 +97,7 @@
 		</div>
 	</div>
 </div>
-<script src="/static/jquery-1.11.3.min.js"></script>
+<script src="/static/scripts/common/jquery-1.11.3.min.js"></script>
 <script src="/static/js/bootstrap.min.js"></script>
 <script src="/static/js/carousel-swipe.js"></script>
 <script type="text/javascript">
