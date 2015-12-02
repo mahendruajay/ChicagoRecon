@@ -142,15 +142,15 @@ public class ApiController {
 
     @RequestMapping(value = "/api/flight/search", method = RequestMethod.GET)
     public ModelAndView DeepLinkURL(@RequestParam("startDate") String startDate,
-                             @RequestParam("returnDate") String returnDate,
-                             @RequestParam("FromAirport") String FromAirport,
-                             @RequestParam("ToAirport") String ToAirport) {
+                                    @RequestParam("returnDate") String returnDate,
+                                    @RequestParam("FromAirport") String FromAirport,
+                                    @RequestParam("ToAirport") String ToAirport) {
 
         String url = "http://www.expedia.com/go/flight/search/roundtrip/";
         Client client = ClientBuilder.newClient();
         WebTarget target = client.target(url).path(startDate).path(returnDate).queryParam("FromAirport", FromAirport)
-                .queryParam("ToAirport", ToAirport).queryParam("NumAdult","1");
-        
+                .queryParam("ToAirport", ToAirport).queryParam("NumAdult", "1");
+
         String redirectUrl = target.getUri().toString();
 
         return new ModelAndView("redirect:" + redirectUrl);
