@@ -55,6 +55,7 @@ public class DestinationSuggestionService {
             List<String> alreadyVisited = new ArrayList<>();
             alreadyVisited.addAll(user.getLiked().keySet());
             alreadyVisited.addAll(user.getDisliked().keySet());
+            alreadyVisited.add(currentlyShowing);
 
             //if already viewed all, show a liked destination again
             if(alreadyVisited.size() == destinations.getDestinations().size()){
@@ -94,7 +95,7 @@ public class DestinationSuggestionService {
             returnVal.put("suggested", destinations.getDestinationByName(bestNextCity));
 
             //now suppose we rated from currently showing...
-            alreadyVisited.add(currentlyShowing);
+            alreadyVisited.add(bestNextCity);
             if(alreadyVisited.size() == destinations.getDestinations().size()){
                 Random rn = new Random();
                 List<String> liked = new ArrayList<>();
@@ -115,9 +116,9 @@ public class DestinationSuggestionService {
             Map<String, Selection> futureUserLiked = new HashMap<>();
             for(String liked : user.getLiked().keySet()){
                 //TODO: if we consider price, we'll need to change 0 to reflect the price of currently showing
-                futureUserLiked.put(liked, new Selection(liked, "0"));
+                futureUserLiked.put(liked, new Selection(null, null, null, null, "0"));
             }
-            futureUserLiked.put(currentlyShowing, new Selection(currentlyShowing, "0"));
+            futureUserLiked.put(currentlyShowing, new Selection(null, null, null, null, "0"));
 
             List<Integer> userLikeAveragePointAfterLikingSuggested = createUserAverage(futureUserLiked);
             List<Integer> userDislikeAveragePointAfterLikingSuggested = createUserAverage(user.getDisliked());
@@ -129,21 +130,20 @@ public class DestinationSuggestionService {
             Double minDistanceIfLikeSuggested = 1000000.0;
             String bestNextCityIfLikeSuggested = "";
             for(String city : cityNetDistIfLikeSuggested.keySet()){
-                if(cityNetDist.get(city) < minDistanceIfLikeSuggested){
-                    minDistanceIfLikeSuggested = cityNetDist.get(city);
+                if(cityNetDistIfLikeSuggested.get(city) < minDistanceIfLikeSuggested){
+                    minDistanceIfLikeSuggested = cityNetDistIfLikeSuggested.get(city);
                     bestNextCityIfLikeSuggested = city;
                 }
             }
             returnVal.put("followingIfLiked", destinations.getDestinationByName(bestNextCityIfLikeSuggested));
 
-
             //suppose they dislike current city
             Map<String, Selection> futureUserDisliked = new HashMap<>();
             for(String disliked : user.getDisliked().keySet()){
                 //TODO: if we consider price, we'll need to change 0 to reflect the price of currently showing
-                futureUserDisliked.put(disliked, new Selection(disliked, "0"));
+                futureUserDisliked.put(disliked, new Selection(null, null, null, null, "0"));
             }
-            futureUserDisliked.put(currentlyShowing, new Selection(currentlyShowing, "0"));
+            futureUserDisliked.put(currentlyShowing, new Selection(null, null, null, null, "0"));
 
             List<Integer> userLikeAveragePointAfterDislikingSuggested = createUserAverage(user.getLiked());
             List<Integer> userDislikeAveragePointAfterDislikingSuggested = createUserAverage(futureUserDisliked);
@@ -155,8 +155,8 @@ public class DestinationSuggestionService {
             Double minDistanceIfDislikeSuggested = 1000000.0;
             String bestNextCityIfDislikeSuggested = "";
             for(String city : cityNetDistIfDislikeSuggested.keySet()){
-                if(cityNetDist.get(city) < minDistanceIfDislikeSuggested){
-                    minDistanceIfDislikeSuggested = cityNetDist.get(city);
+                if(cityNetDistIfDislikeSuggested.get(city) < minDistanceIfDislikeSuggested){
+                    minDistanceIfDislikeSuggested = cityNetDistIfDislikeSuggested.get(city);
                     bestNextCityIfDislikeSuggested = city;
                 }
             }

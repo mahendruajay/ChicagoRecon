@@ -15,6 +15,21 @@ service.getSuggestion = function(user, airport) {
 	});
 };
 
+service.rateSuggestion = function(user, suggestion, liked) {
+	return $.ajax({
+		url: "/api/suggestion/rate",
+		method: "POST",
+		contentType: 'application/json',
+		data: JSON.stringify({
+			userId: user,
+			cityName: suggestion.destinationAirport.city,
+			liked: liked,
+			price: suggestion.price
+		}),
+		dataType: "json"
+	});
+};
+
 
 application.RateRoute = Ember.Route.extend({
 	
@@ -70,6 +85,9 @@ application.RateController = Ember.Controller.extend({
 	actions: {
 		like: function() {
 			var controller = this;
+			
+			var suggestions = controller.get('suggestions');
+			service.rateSuggestion(this.get('model.user'), suggestions[1], true);
 		
 			setTimeout(function() {
 				var suggestions = controller.get('suggestions');
@@ -82,6 +100,9 @@ application.RateController = Ember.Controller.extend({
 		},
 		dislike: function() {
 			var controller = this;
+		
+			var suggestions = controller.get('suggestions');
+			service.rateSuggestion(this.get('model.user'), suggestions[1], false);
 		
 			setTimeout(function() {
 				var suggestions = controller.get('suggestions');
