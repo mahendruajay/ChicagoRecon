@@ -16,5 +16,6 @@
 	<script src="/static/scripts/common/ember.min.js"></script>
 	<script src="/static/scripts/common/ember-template-compiler.js"></script>
 	<script src="/static/scripts/app/application.js"></script>
+	<script src="/static/scripts/app/rate.js"></script>
 </body>
 </html>

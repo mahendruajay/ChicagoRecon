@@ -13,34 +13,3 @@ application.Router.map(function() {
 	this.route('wallet');
 });
 
-application.RateRoute = Ember.Route.extend({
-	
-	model: function() {
-		return $.ajax({
-			url: "/api/suggestion?user=me&origin=here&date=now",
-			method: "GET",
-			data: {
-				user: "me",
-				origin: "here",
-				date: "now"
-			},
-			dataType: "json"
-		});
-	},
-	
-	actions: {
-		error: function() {
-			$('#server-side-content').remove();
-			return true;
-		},
-		didTransition: function() {
-			$('#server-side-content').remove();
-			return true;
-		}
-	}
-});
-
-application.RateController = Ember.Controller.extend({
-	
-});
-
