@@ -404,30 +404,30 @@ public class Destinations {
 
 //      Marrakech, Morocco
         List<String> airportCodes17 = new ArrayList<>();
-        airportCodes17.add("RAK");
-        destinations.add(
-                new Destination("Marrakech" /*city*/,
-                        null /*state*/,
-                        "Morocco" /*country*/,
-                        airportCodes17,
-                        8 /*price*/,
-                        0 /*inUs*/,
-                        0 /*inEurope*/,
-                        0 /*beach*/,
-                        4 /*bigCity*/,
-                        8 /*historic*/,
-                        5 /*outdoorActivities*/,
-                        2 /*familyFriendly*/,
-                        5 /*entertainment*/,
-                        0 /*casinos*/,
-                        5 /*greatDining*/,
-                        6 /*warmDestination*/,
-                        0 /*romantic*/,
-                        0 /*cruises*/));
+            airportCodes17.add("RAK"); // Not here
+//        destinations.add(
+//                new Destination("Marrakech" /*city*/,
+//                        null /*state*/,
+//                        "Morocco" /*country*/,
+//                        airportCodes17,
+//                        8 /*price*/,
+//                        0 /*inUs*/,
+//                        0 /*inEurope*/,
+//                        0 /*beach*/,
+//                        4 /*bigCity*/,
+//                        8 /*historic*/,
+//                        5 /*outdoorActivities*/,
+//                        2 /*familyFriendly*/,
+//                        5 /*entertainment*/,
+//                        0 /*casinos*/,
+//                        5 /*greatDining*/,
+//                        6 /*warmDestination*/,
+//                        0 /*romantic*/,
+//                        0 /*cruises*/));
 
 //      Prague, Czech Republic
         List<String> airportCodes18 = new ArrayList<>();
-        airportCodes18.add("PRG");
+            airportCodes18.add("PRG"); // Not here
         destinations.add(
                 new Destination("Prague" /*city*/,
                         null /*state*/,
@@ -450,164 +450,164 @@ public class Destinations {
 
 //      London, United Kingdom
         List<String> airportCodes19 = new ArrayList<>();
-        airportCodes19.add("LHR");
-        destinations.add(
-                new Destination("London" /*city*/,
-                        null /*state*/,
-                        "United Kingdom" /*country*/,
-                        airportCodes19,
-                        8 /*price*/,
-                        0 /*inUs*/,
-                        10 /*inEurope*/,
-                        0 /*beach*/,
-                        10 /*bigCity*/,
-                        10 /*historic*/,
-                        7 /*outdoorActivities*/,
-                        5 /*familyFriendly*/,
-                        10 /*entertainment*/,
-                        5 /*casinos*/,
-                        5 /*greatDining*/,
-                        0 /*warmDestination*/,
-                        3 /*romantic*/,
-                        0 /*cruises*/));
+            airportCodes19.add("LHR"); // Not here
+//        destinations.add(
+//                new Destination("London" /*city*/,
+//                        null /*state*/,
+//                        "United Kingdom" /*country*/,
+//                        airportCodes19,
+//                        8 /*price*/,
+//                        0 /*inUs*/,
+//                        10 /*inEurope*/,
+//                        0 /*beach*/,
+//                        10 /*bigCity*/,
+//                        10 /*historic*/,
+//                        7 /*outdoorActivities*/,
+//                        5 /*familyFriendly*/,
+//                        10 /*entertainment*/,
+//                        5 /*casinos*/,
+//                        5 /*greatDining*/,
+//                        0 /*warmDestination*/,
+//                        3 /*romantic*/,
+//                        0 /*cruises*/));
 
 //      Rome, Italy
         List<String> airportCodes20 = new ArrayList<>();
-        airportCodes20.add("FCO");
-        destinations.add(
-                new Destination("Rome" /*city*/,
-                        null /*state*/,
-                        "Italy" /*country*/,
-                        airportCodes20,
-                        8 /*price*/,
-                        0 /*inUs*/,
-                        10 /*inEurope*/,
-                        0 /*beach*/,
-                        10 /*bigCity*/,
-                        10 /*historic*/,
-                        7 /*outdoorActivities*/,
-                        10 /*familyFriendly*/,
-                        5 /*entertainment*/,
-                        0 /*casinos*/,
-                        10 /*greatDining*/,
-                        5 /*warmDestination*/,
-                        10 /*romantic*/,
-                        7 /*cruises*/));
+            airportCodes20.add("FCO"); // Not here
+//        destinations.add(
+//                new Destination("Rome" /*city*/,
+//                        null /*state*/,
+//                        "Italy" /*country*/,
+//                        airportCodes20,
+//                        8 /*price*/,
+//                        0 /*inUs*/,
+//                        10 /*inEurope*/,
+//                        0 /*beach*/,
+//                        10 /*bigCity*/,
+//                        10 /*historic*/,
+//                        7 /*outdoorActivities*/,
+//                        10 /*familyFriendly*/,
+//                        5 /*entertainment*/,
+//                        0 /*casinos*/,
+//                        10 /*greatDining*/,
+//                        5 /*warmDestination*/,
+//                        10 /*romantic*/,
+//                        7 /*cruises*/));
 
 //      Paris, France
         List<String> airportCodes21 = new ArrayList<>();
-        airportCodes21.add("CDG");
-        destinations.add(
-                new Destination("Paris" /*city*/,
-                        null /*state*/,
-                        "France" /*country*/,
-                        airportCodes21,
-                        8 /*price*/,
-                        0 /*inUs*/,
-                        10 /*inEurope*/,
-                        0 /*beach*/,
-                        10 /*bigCity*/,
-                        7 /*historic*/,
-                        7 /*outdoorActivities*/,
-                        10 /*familyFriendly*/,
-                        10 /*entertainment*/,
-                        5 /*casinos*/,
-                        10 /*greatDining*/,
-                        1 /*warmDestination*/,
-                        10 /*romantic*/,
-                        0 /*cruises*/));
+            airportCodes21.add("CDG"); // Not here
+//        destinations.add(
+//                new Destination("Paris" /*city*/,
+//                        null /*state*/,
+//                        "France" /*country*/,
+//                        airportCodes21,
+//                        8 /*price*/,
+//                        0 /*inUs*/,
+//                        10 /*inEurope*/,
+//                        0 /*beach*/,
+//                        10 /*bigCity*/,
+//                        7 /*historic*/,
+//                        7 /*outdoorActivities*/,
+//                        10 /*familyFriendly*/,
+//                        10 /*entertainment*/,
+//                        5 /*casinos*/,
+//                        10 /*greatDining*/,
+//                        1 /*warmDestination*/,
+//                        10 /*romantic*/,
+//                        0 /*cruises*/));
 
 //      Zermatt, Switzerland
         List<String> airportCodes22 = new ArrayList<>();
-        airportCodes22.add("CH");
-        destinations.add(
-                new Destination("Zermatt" /*city*/,
-                        null /*state*/,
-                        "Switzerland" /*country*/,
-                        airportCodes22,
-                        8 /*price*/,
-                        0 /*inUs*/,
-                        10 /*inEurope*/,
-                        0 /*beach*/,
-                        2 /*bigCity*/,
-                        0 /*historic*/,
-                        10 /*outdoorActivities*/,
-                        4 /*familyFriendly*/,
-                        3 /*entertainment*/,
-                        5 /*casinos*/,
-                        0 /*greatDining*/,
-                        0 /*warmDestination*/,
-                        5 /*romantic*/,
-                        0 /*cruises*/));
+            airportCodes22.add("CH"); // Not here
+//        destinations.add(
+//                new Destination("Zermatt" /*city*/,
+//                        null /*state*/,
+//                        "Switzerland" /*country*/,
+//                        airportCodes22,
+//                        8 /*price*/,
+//                        0 /*inUs*/,
+//                        10 /*inEurope*/,
+//                        0 /*beach*/,
+//                        2 /*bigCity*/,
+//                        0 /*historic*/,
+//                        10 /*outdoorActivities*/,
+//                        4 /*familyFriendly*/,
+//                        3 /*entertainment*/,
+//                        5 /*casinos*/,
+//                        0 /*greatDining*/,
+//                        0 /*warmDestination*/,
+//                        5 /*romantic*/,
+//                        0 /*cruises*/));
 
 //      Barcelona, Spain
         List<String> airportCodes23 = new ArrayList<>();
-        airportCodes23.add("BCN");
-        destinations.add(
-                new Destination("Barcelona" /*city*/,
-                        null /*state*/,
-                        "Spain" /*country*/,
-                        airportCodes23,
-                        8 /*price*/,
-                        0 /*inUs*/,
-                        10 /*inEurope*/,
-                        7 /*beach*/,
-                        5 /*bigCity*/,
-                        5 /*historic*/,
-                        8 /*outdoorActivities*/,
-                        5 /*familyFriendly*/,
-                        5 /*entertainment*/,
-                        5 /*casinos*/,
-                        5 /*greatDining*/,
-                        2 /*warmDestination*/,
-                        5 /*romantic*/,
-                        0 /*cruises*/));
+            airportCodes23.add("BCN"); // Not here
+//        destinations.add(
+//                new Destination("Barcelona" /*city*/,
+//                        null /*state*/,
+//                        "Spain" /*country*/,
+//                        airportCodes23,
+//                        8 /*price*/,
+//                        0 /*inUs*/,
+//                        10 /*inEurope*/,
+//                        7 /*beach*/,
+//                        5 /*bigCity*/,
+//                        5 /*historic*/,
+//                        8 /*outdoorActivities*/,
+//                        5 /*familyFriendly*/,
+//                        5 /*entertainment*/,
+//                        5 /*casinos*/,
+//                        5 /*greatDining*/,
+//                        2 /*warmDestination*/,
+//                        5 /*romantic*/,
+//                        0 /*cruises*/));
 
 //      Hong Kong, China
         List<String> airportCodes24 = new ArrayList<>();
-        airportCodes24.add("HKG");
-        destinations.add(
-                new Destination("Hong Kong" /*city*/,
-                        null /*state*/,
-                        "China" /*country*/,
-                        airportCodes24,
-                        10 /*price*/,
-                        0 /*inUs*/,
-                        0 /*inEurope*/,
-                        3 /*beach*/,
-                        10 /*bigCity*/,
-                        0 /*historic*/,
-                        5 /*outdoorActivities*/,
-                        3 /*familyFriendly*/,
-                        5 /*entertainment*/,
-                        5 /*casinos*/,
-                        7 /*greatDining*/,
-                        7 /*warmDestination*/,
-                        3 /*romantic*/,
-                        5 /*cruises*/));
+            airportCodes24.add("HKG"); // Not here
+//        destinations.add(
+//                new Destination("Hong Kong" /*city*/,
+//                        null /*state*/,
+//                        "China" /*country*/,
+//                        airportCodes24,
+//                        10 /*price*/,
+//                        0 /*inUs*/,
+//                        0 /*inEurope*/,
+//                        3 /*beach*/,
+//                        10 /*bigCity*/,
+//                        0 /*historic*/,
+//                        5 /*outdoorActivities*/,
+//                        3 /*familyFriendly*/,
+//                        5 /*entertainment*/,
+//                        5 /*casinos*/,
+//                        7 /*greatDining*/,
+//                        7 /*warmDestination*/,
+//                        3 /*romantic*/,
+//                        5 /*cruises*/));
 
 //      Sydney, Australia
         List<String> airportCodes25 = new ArrayList<>();
-        airportCodes25.add("SYD");
-        destinations.add(
-                new Destination("Sydney" /*city*/,
-                        null /*state*/,
-                        "Australia" /*country*/,
-                        airportCodes25,
-                        10 /*price*/,
-                        0 /*inUs*/,
-                        0 /*inEurope*/,
-                        10 /*beach*/,
-                        8 /*bigCity*/,
-                        8 /*historic*/,
-                        8 /*outdoorActivities*/,
-                        8 /*familyFriendly*/,
-                        5 /*entertainment*/,
-                        0 /*casinos*/,
-                        5 /*greatDining*/,
-                        10 /*warmDestination*/,
-                        7 /*romantic*/,
-                        8 /*cruises*/));
+            airportCodes25.add("SYD"); // Not here
+//        destinations.add(
+//                new Destination("Sydney" /*city*/,
+//                        null /*state*/,
+//                        "Australia" /*country*/,
+//                        airportCodes25,
+//                        10 /*price*/,
+//                        0 /*inUs*/,
+//                        0 /*inEurope*/,
+//                        10 /*beach*/,
+//                        8 /*bigCity*/,
+//                        8 /*historic*/,
+//                        8 /*outdoorActivities*/,
+//                        8 /*familyFriendly*/,
+//                        5 /*entertainment*/,
+//                        0 /*casinos*/,
+//                        5 /*greatDining*/,
+//                        10 /*warmDestination*/,
+//                        7 /*romantic*/,
+//                        8 /*cruises*/));
 
         destinationMap = new HashMap<>();
         for (Destination destination : destinations){

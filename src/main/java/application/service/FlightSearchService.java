@@ -76,21 +76,21 @@ public class FlightSearchService {
             String price = jobject.get("totalFare").getAsString();
             priceList.add(price);
             String legIds = jobject.getAsJsonArray("legIds").getAsString();
-            int NumberofLegIds = jobject.getAsJsonArray("legIds").size();
+            int NumberOfLegIds = jobject.getAsJsonArray("legIds").size();
 
             if (m.containsKey(price)) {
                 TreeMap<Integer,ArrayList<String>> n = m.get(price);
 
-                if(n.containsKey(NumberofLegIds)) {
-                    ArrayList<String> lIds = n.get(NumberofLegIds);
+                if (n.containsKey(NumberOfLegIds)) {
+                    ArrayList<String> lIds = n.get(NumberOfLegIds);
                     lIds.add(legIds);
-                    n.put(NumberofLegIds, lIds);
+                    n.put(NumberOfLegIds, lIds);
                 }
 
                 else {
                     ArrayList<String> newlIds = new ArrayList<String>();
                     newlIds.add(legIds);
-                    n.put(NumberofLegIds, newlIds);
+                    n.put(NumberOfLegIds, newlIds);
                 }
 
                 m.put(price,n);
@@ -99,7 +99,7 @@ public class FlightSearchService {
                 TreeMap<Integer,ArrayList<String>> newValue = new TreeMap<Integer,ArrayList<String>>();
                 ArrayList<String> lIds = new ArrayList<String>();
                 lIds.add(legIds);
-                newValue.put(NumberofLegIds, lIds);
+                newValue.put(NumberOfLegIds, lIds);
                 m.put(price, newValue);
             }
         }
