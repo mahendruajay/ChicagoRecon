@@ -68,7 +68,7 @@ public class AirportService {
             }
 
             if (featureID.equalsIgnoreCase("")) {
-                return new Airport("SEA", "Seattle");
+                return new Airport("ORD", "Chicago");
             }
 
 //        GsonBuilder builder = new GsonBuilder();
@@ -92,7 +92,7 @@ public class AirportService {
 
             String airportCode = findAirportCode(features);
             if (airportCode.equalsIgnoreCase("")) {
-                return new Airport("SEA", "Seattle");
+                return new Airport("ORD", "Chicago");
             }
 
             airport = new Airport(airportCode, city);
@@ -101,7 +101,7 @@ public class AirportService {
 
             return airport;
         } catch (Exception e) {
-            return new Airport("SEA", "Seattle");
+            return new Airport("ORD", "Chicago");
         }
 
     }
