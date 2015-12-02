@@ -116,9 +116,9 @@ public class DestinationSuggestionService {
             Map<String, Selection> futureUserLiked = new HashMap<>();
             for(String liked : user.getLiked().keySet()){
                 //TODO: if we consider price, we'll need to change 0 to reflect the price of currently showing
-                futureUserLiked.put(liked, new Selection(liked, "0"));
+                futureUserLiked.put(liked, new Selection(null, null, null, null, "0"));
             }
-            futureUserLiked.put(currentlyShowing, new Selection(currentlyShowing, "0"));
+            futureUserLiked.put(currentlyShowing, new Selection(null, null, null, null, "0"));
 
             List<Integer> userLikeAveragePointAfterLikingSuggested = createUserAverage(futureUserLiked);
             List<Integer> userDislikeAveragePointAfterLikingSuggested = createUserAverage(user.getDisliked());
@@ -141,9 +141,9 @@ public class DestinationSuggestionService {
             Map<String, Selection> futureUserDisliked = new HashMap<>();
             for(String disliked : user.getDisliked().keySet()){
                 //TODO: if we consider price, we'll need to change 0 to reflect the price of currently showing
-                futureUserDisliked.put(disliked, new Selection(disliked, "0"));
+                futureUserDisliked.put(disliked, new Selection(null, null, null, null, "0"));
             }
-            futureUserDisliked.put(currentlyShowing, new Selection(currentlyShowing, "0"));
+            futureUserDisliked.put(currentlyShowing, new Selection(null, null, null, null, "0"));
 
             List<Integer> userLikeAveragePointAfterDislikingSuggested = createUserAverage(user.getLiked());
             List<Integer> userDislikeAveragePointAfterDislikingSuggested = createUserAverage(futureUserDisliked);
