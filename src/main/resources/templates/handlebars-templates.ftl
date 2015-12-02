@@ -18,6 +18,7 @@
 									<h2>{{suggestion.destinationAirport.city}}</h2>
 									<h4>{{suggestion.displayDepartureDate}} - {{suggestion.displayReturnDate}}</h4>
 									<h2>${r"$"}{{suggestion.price}}</h2>
+									<a class="btn btn-success" href="/wallet?user={{model.user}}">View Wallet</a>
 								</div>
 							</div>
 						{{/each}}

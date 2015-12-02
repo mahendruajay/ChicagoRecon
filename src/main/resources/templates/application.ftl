@@ -56,6 +56,12 @@
 			top: 85%;
 			left: 45%;
 		}
+
+        .btn-success {
+            position: absolute;
+            top: 5%;
+            left: 85%;
+        }
 		h2 {
 			font-size: 3em;
             margin-bottom: 0;
