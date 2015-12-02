@@ -6,6 +6,32 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Fly Away: Wallet</title>
 	<link href="/static/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+	    .container-fluid {
+	        padding-left: 0;
+	        padding-right: 0;
+	    }
+	    .media {
+	        margin-top: 0;
+	        border-bottom: 1px solid #efefef;
+	    }
+	    .media:last-child {
+	        border-bottom: 0;
+	    }
+	    .media-body, .media-left, .media-right {
+            vertical-align: middle;
+        }
+        .media-right {
+            padding-right: 10px;
+        }
+        .btn-default {
+            background-color: #fff;
+            border-color: #5cb85c;
+            color: #5cb85c;
+            font-size: 18px;
+            font-weight: bold;
+        }
+	</style>
 </head>
 <body>
 <div class="container-fluid">
