@@ -4,10 +4,13 @@ import application.domain.*;
 import application.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.WebTarget;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
 
 @RestController
 public class ApiController {
@@ -90,5 +93,21 @@ public class ApiController {
         return flightSearchService.getFlights(departureDate, departureAirport, arrivalAirport, returnDate);
 
     }
-}
 
+    @RequestMapping(value = "/api/flight/search", method = RequestMethod.GET)
+    public ModelAndView DeepLinkURL(@RequestParam("startDate") String startDate,
+                             @RequestParam("returnDate") String returnDate,
+                             @RequestParam("FromAirport") String FromAirport,
+                             @RequestParam("ToAirport") String ToAirport) {
+
+        String url = "http://www.expedia.com/go/flight/search/roundtrip/";
+        Client client = ClientBuilder.newClient();
+        WebTarget target = client.target(url).path(startDate).path(returnDate).queryParam("FromAirport", FromAirport)
+                .queryParam("ToAirport", ToAirport).queryParam("NumAdult","1");
+        
+        String redirectUrl = target.getUri().toString();
+
+        return new ModelAndView("redirect:" + redirectUrl);
+
+    }
+}
