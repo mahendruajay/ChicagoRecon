@@ -95,6 +95,15 @@
 			font-size: 2em;
 			margin-top: 0;
 		}
+		.bottom-overlay {
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			width: 100%;
+			height: 20%;
+			background-color: black;
+			opacity: 0.7;
+		}
 	</style>
 </head>
 <body>

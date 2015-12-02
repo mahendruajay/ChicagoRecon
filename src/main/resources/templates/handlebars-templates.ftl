@@ -46,6 +46,8 @@
 							<span class="sr-only">Heart</span>
 						</a>
 					</div>
+					<div class="bottom-overlay">
+					</div>
 				</div>
 				<!--end-->
 			</div>
