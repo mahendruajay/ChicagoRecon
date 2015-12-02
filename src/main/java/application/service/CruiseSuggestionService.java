@@ -34,7 +34,7 @@ public class CruiseSuggestionService {
     private ServiceCache serviceCache;
 
     public CruiseSuggestion getCruiseSuggestion(String destinationAirportCode, LocalDate departureDate, LocalDate returnDate) {
-        String key = serviceCache.generateCruiseSuggestionKey(destinationAirportCode, departureDate, returnDate);
+        String key = serviceCache.generateCruiseSuggestionCacheKey(destinationAirportCode, departureDate, returnDate);
         CruiseSuggestion cruiseSuggestion = serviceCache.getCruiseSuggestion(key);
 
         if (cruiseSuggestion != null) {

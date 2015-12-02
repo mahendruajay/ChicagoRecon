@@ -3,6 +3,7 @@ package application.service;
 import application.domain.Airport;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.client.Client;
@@ -21,8 +22,16 @@ public class AirportService {
     private static final String GAIA_GET_FEATURES_BY_ID = "http://terminal2.expedia.com/x/geo/features";
     private static final String APIKEY = "ZfO3QR30jRKFZQaAhTAN85XrWxpe2dyB";
 
+    @Autowired
+    private ServiceCache serviceCache;
 
     public Airport getAirportCode(Double latitude, Double longitude) {
+        String key = serviceCache.generateAirportCacheKey(latitude, longitude);
+        Airport airport = serviceCache.getAirport(key);
+
+        if (airport != null) {
+            return airport;
+        }
 
         Client client = ClientBuilder.newClient();
         WebTarget target = client.target(GAIA_GET_FEATURES_BY_LAT_LONG).
@@ -49,7 +58,6 @@ public class AirportService {
         if (cityName.length > 0) {
             city = cityName[0];
         }
-
 
         JSONObject links = (JSONObject) featureRadialObject.get("links");
         String featureID = "";
@@ -87,7 +95,9 @@ public class AirportService {
             return new Airport("ORD", "Chicago");
         }
 
-        Airport airport = new Airport(airportCode, city);
+        airport = new Airport(airportCode, city);
+
+        serviceCache.cacheAirport(key, airport);
 
         return airport;
 

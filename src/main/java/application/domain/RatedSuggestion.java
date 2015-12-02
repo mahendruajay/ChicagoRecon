@@ -10,6 +10,8 @@ public class RatedSuggestion {
     private boolean liked;
     private String price;
 
+    public RatedSuggestion(){}
+
     public RatedSuggestion(String userId, String cityName, boolean selected, String price) {
         this.userId = userId;
         this.cityName = cityName;
