@@ -39,7 +39,7 @@ public class DestinationSuggestionService {
                 new Suggestion(nextPlace.get("followingIfDisliked").getCity(), nextPlace.get("followingIfDisliked").getAirportCodes(), getSpecialLabels(nextPlace.get("followingIfDisliked")))
         );
 
-        log.info("suggestion: " + nextPlace.get("suggested").getCity() + " nextIfLiked: " + nextPlace.get("followingIfLiked").getCity() + " nextIfDisiked: " + nextPlace.get("followingIfDisliked").getCity());
+        log.info("suggestion: " + nextPlace.get("suggested").getCity() + ", nextIfLiked: " + nextPlace.get("followingIfLiked").getCity() + ", nextIfDisiked: " + nextPlace.get("followingIfDisliked").getCity());
         return retVal;
     }
 
@@ -68,16 +68,16 @@ public class DestinationSuggestionService {
                 Random rn = new Random();
                 List<String> liked = new ArrayList<>();
                 liked.addAll(user.getLiked().keySet());
+                log.info("");
+                log.info("ALL DESTINATIONS VIEWED - RESTARTING...");
+                log.info("");
                 if(liked.size() > 0) {
-                    returnVal.put("suggested", destinations.getDestinationByName(liked.get(rn.nextInt(liked.size()))));
-                    returnVal.put("followingIfLiked", destinations.getDestinationByName(liked.get(rn.nextInt(liked.size()))));
-                    returnVal.put("followingIfDisliked", destinations.getDestinationByName(liked.get(rn.nextInt(liked.size()))));
-                    return returnVal;
+                    //TODO: Should try to prefer showing liked if liked destinations exist once all shown???
+                    user.getLiked().clear();
+                    return getRandomStartAndAccurateNexts();
                 } else {
-                    returnVal.put("suggested", destinations.getDestinationByName(alreadyVisited.get(rn.nextInt(alreadyVisited.size()))));
-                    returnVal.put("followingIfLiked", destinations.getDestinationByName(alreadyVisited.get(rn.nextInt(alreadyVisited.size()))));
-                    returnVal.put("followingIfDisliked", destinations.getDestinationByName(alreadyVisited.get(rn.nextInt(alreadyVisited.size()))));
-                    return returnVal;
+                    user.getDisliked().clear();
+                    return getRandomStartAndAccurateNexts();
                 }
             }
 
@@ -170,55 +170,59 @@ public class DestinationSuggestionService {
             return returnVal;
         } else{
             //user has no rating history, show a random destination
-            Random rn = new Random();
-            Map<String, Destination> returnVal = new HashMap<>();
-
-            Destination suggeseted = destinations.getDestinations().get(rn.nextInt(destinations.getDestinations().size()));
-            returnVal.put("suggested", suggeseted);
-
-            List<String> alreadyVisited = new ArrayList<>();
-            alreadyVisited.add(suggeseted.getCity());
-
-            //suppose they like current city
-            Map<String, Selection> futureUserLiked = new HashMap<>();
-            futureUserLiked.put(suggeseted.getCity(), new Selection(null, null, null, null, "0"));
-            Map<String, Selection> futureUserDisliked = new HashMap<>();
-            List<Integer> userLikeAveragePointAfterLikingSuggested = createUserAverage(futureUserLiked);
-            List<Integer> userDislikeAveragePointAfterLikingSuggested = createUserAverage(futureUserDisliked);
-            Map<String, Double> distNewToLikedPointsIfLikeSuggested = distancesPointToNewDestinations(userLikeAveragePointAfterLikingSuggested, alreadyVisited);
-            Map<String, Double> distNewToDislikedPointsIfLikeSuggested = distancesPointToNewDestinations(userDislikeAveragePointAfterLikingSuggested, alreadyVisited);
-            Map<String, Double> cityNetDistIfLikeSuggested = findNetDists(distNewToLikedPointsIfLikeSuggested, distNewToDislikedPointsIfLikeSuggested);
-            Double minDistanceIfLikeSuggested = 100000000.0;
-            String bestNextCityIfLikeSuggested = "";
-            for(String city : cityNetDistIfLikeSuggested.keySet()){
-                if(cityNetDistIfLikeSuggested.get(city) < minDistanceIfLikeSuggested){
-                    minDistanceIfLikeSuggested = cityNetDistIfLikeSuggested.get(city);
-                    bestNextCityIfLikeSuggested = city;
-                }
-            }
-            returnVal.put("followingIfLiked", destinations.getDestinationByName(bestNextCityIfLikeSuggested));
-
-            //suppose they dislike current city
-            futureUserLiked = new HashMap<>();
-            futureUserDisliked = new HashMap<>();
-            futureUserDisliked.put(suggeseted.getCity(), new Selection(null, null, null, null, "0"));
-            List<Integer> userLikeAveragePointAfterDislikingSuggested = createUserAverage(futureUserLiked);
-            List<Integer> userDislikeAveragePointAfterDislikingSuggested = createUserAverage(futureUserDisliked);
-            Map<String, Double> distNewToLikedPointsIfDislikeSuggested = distancesPointToNewDestinations(userLikeAveragePointAfterDislikingSuggested, alreadyVisited);
-            Map<String, Double> distNewToDislikedPointsIfDislikeSuggested = distancesPointToNewDestinations(userDislikeAveragePointAfterDislikingSuggested, alreadyVisited);
-            Map<String, Double> cityNetDistIfDislikeSuggested = findNetDists(distNewToLikedPointsIfDislikeSuggested, distNewToDislikedPointsIfDislikeSuggested);
-            Double minDistanceIfDislikeSuggested = 100000000.0;
-            String bestNextCityIfDislikeSuggested = "";
-            for(String city : cityNetDistIfDislikeSuggested.keySet()){
-                if(cityNetDistIfDislikeSuggested.get(city) < minDistanceIfDislikeSuggested){
-                    minDistanceIfDislikeSuggested = cityNetDistIfDislikeSuggested.get(city);
-                    bestNextCityIfDislikeSuggested = city;
-                }
-            }
-            returnVal.put("followingIfDisliked", destinations.getDestinationByName(bestNextCityIfDislikeSuggested));
-
-            return returnVal;
+            return getRandomStartAndAccurateNexts();
         }
+    }
+
+    private Map<String, Destination> getRandomStartAndAccurateNexts(){
+        Random rn = new Random();
+        Map<String, Destination> returnVal = new HashMap<>();
+
+        Destination suggeseted = destinations.getDestinations().get(rn.nextInt(destinations.getDestinations().size()));
+        returnVal.put("suggested", suggeseted);
+
+        List<String> alreadyVisited = new ArrayList<>();
+        alreadyVisited.add(suggeseted.getCity());
+
+        //suppose they like current city
+        Map<String, Selection> futureUserLiked = new HashMap<>();
+        futureUserLiked.put(suggeseted.getCity(), new Selection(null, null, null, null, "0"));
+        Map<String, Selection> futureUserDisliked = new HashMap<>();
+        List<Integer> userLikeAveragePointAfterLikingSuggested = createUserAverage(futureUserLiked);
+        List<Integer> userDislikeAveragePointAfterLikingSuggested = createUserAverage(futureUserDisliked);
+        Map<String, Double> distNewToLikedPointsIfLikeSuggested = distancesPointToNewDestinations(userLikeAveragePointAfterLikingSuggested, alreadyVisited);
+        Map<String, Double> distNewToDislikedPointsIfLikeSuggested = distancesPointToNewDestinations(userDislikeAveragePointAfterLikingSuggested, alreadyVisited);
+        Map<String, Double> cityNetDistIfLikeSuggested = findNetDists(distNewToLikedPointsIfLikeSuggested, distNewToDislikedPointsIfLikeSuggested);
+        Double minDistanceIfLikeSuggested = 100000000.0;
+        String bestNextCityIfLikeSuggested = "";
+        for(String city : cityNetDistIfLikeSuggested.keySet()){
+            if(cityNetDistIfLikeSuggested.get(city) < minDistanceIfLikeSuggested){
+                minDistanceIfLikeSuggested = cityNetDistIfLikeSuggested.get(city);
+                bestNextCityIfLikeSuggested = city;
+            }
+        }
+        returnVal.put("followingIfLiked", destinations.getDestinationByName(bestNextCityIfLikeSuggested));
+
+        //suppose they dislike current city
+        futureUserLiked = new HashMap<>();
+        futureUserDisliked = new HashMap<>();
+        futureUserDisliked.put(suggeseted.getCity(), new Selection(null, null, null, null, "0"));
+        List<Integer> userLikeAveragePointAfterDislikingSuggested = createUserAverage(futureUserLiked);
+        List<Integer> userDislikeAveragePointAfterDislikingSuggested = createUserAverage(futureUserDisliked);
+        Map<String, Double> distNewToLikedPointsIfDislikeSuggested = distancesPointToNewDestinations(userLikeAveragePointAfterDislikingSuggested, alreadyVisited);
+        Map<String, Double> distNewToDislikedPointsIfDislikeSuggested = distancesPointToNewDestinations(userDislikeAveragePointAfterDislikingSuggested, alreadyVisited);
+        Map<String, Double> cityNetDistIfDislikeSuggested = findNetDists(distNewToLikedPointsIfDislikeSuggested, distNewToDislikedPointsIfDislikeSuggested);
+        Double minDistanceIfDislikeSuggested = 100000000.0;
+        String bestNextCityIfDislikeSuggested = "";
+        for(String city : cityNetDistIfDislikeSuggested.keySet()){
+            if(cityNetDistIfDislikeSuggested.get(city) < minDistanceIfDislikeSuggested){
+                minDistanceIfDislikeSuggested = cityNetDistIfDislikeSuggested.get(city);
+                bestNextCityIfDislikeSuggested = city;
+            }
+        }
+        returnVal.put("followingIfDisliked", destinations.getDestinationByName(bestNextCityIfDislikeSuggested));
+
+        return returnVal;
     }
 
     private List<String> getSpecialLabels(Destination destination){
