@@ -22,7 +22,10 @@ service.rateSuggestion = function(user, suggestion, liked) {
 		contentType: 'application/json',
 		data: JSON.stringify({
 			userId: user,
-			cityName: suggestion.destinationAirport.city,
+			arrivalCity: suggestion.destinationAirport.city,
+			departureCity: suggestion.originAirport.city,
+			departureDate: suggestion.departureDate,
+			arrivalDate: suggestion.returnDate,
 			liked: liked,
 			price: suggestion.price
 		}),
@@ -116,13 +119,13 @@ application.RateController = Ember.Controller.extend({
 	},
 	
 	suggestions: function() {
-		var suggestion = this.get('model.suggestion');
+		var suggestion = this.get('model.suggestion.suggested');
 		suggestion.active = true;
 		suggestion.id = this.nextId;
 		this.nextId++;
 	
 		return [suggestion];
-	}.property('model.suggestion'),
+	}.property('model.suggestion.suggested'),
 	
 	preLoadNextSuggestion: function() {
 		var controller = this;
@@ -131,9 +134,9 @@ application.RateController = Ember.Controller.extend({
 		.then(function(newSuggestion) {
 			var suggestions = controller.get('suggestions');
 			
-			var prevSuggestion = $.extend({id: controller.nextId}, newSuggestion);
+			var prevSuggestion = $.extend({id: controller.nextId}, newSuggestion.suggested);
 			controller.nextId++;
-			var nextSuggestion = $.extend({id: controller.nextId}, newSuggestion);
+			var nextSuggestion = $.extend({id: controller.nextId}, newSuggestion.suggested);
 			controller.nextId++;
 			
 			controller.set('suggestions', [prevSuggestion, suggestions[0], nextSuggestion]);
