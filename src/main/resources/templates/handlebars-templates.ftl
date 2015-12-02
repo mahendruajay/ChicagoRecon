@@ -12,26 +12,28 @@
 					<!-- Wrapper for slides -->
 					<div class="carousel-inner" role="listbox">
 						{{#each suggestions as |suggestion|}}
-							<div class="item {{if suggestion.active "active"}}">
-								<img src="/static/assets/{{suggestion.destinationAirport.code}}.jpg" alt="">
+							<div id="suggestion-{{suggestion.id}}" class="item {{if suggestion.active "active"}}">
+								<img class="background" src="/static/assets/{{suggestion.destinationAirport.code}}.jpg" alt="{{suggestion.destinationAirport.city}}">
 								<div class="carousel-caption">
-									<h3>{{suggestion.destinationAirport.city}}</h3>
+									<h2>{{suggestion.destinationAirport.city}}</h2>
 									<h4>{{suggestion.displayDepartureDate}} - {{suggestion.displayReturnDate}}</h4>
-									<h3>${r"$"}{{suggestion.price}}</h3>
-									<p><a class="btn btn-warning" href="/api/flight/search?startDate={{suggestion.departureDate}}&returnDate={{suggestion.returnDate}}&FromAirport={{suggestion.originAirport.code}}&&ToAirport={{suggestion.destinationAirport.code}}">Book</a></p>
+									<h2>${r"$"}{{suggestion.price}}</h2>
 								</div>
 							</div>
 						{{/each}}
 					</div>
 					<!-- Controls -->
-					<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev" {{action 'dislike'}}>
-						<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-						<span class="sr-only">Dislike</span>
-					</a>
-					<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next" {{action 'like'}}>
-						<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-						<span class="sr-only">Heart</span>
-					</a>
+					<div class="icon-overlay">
+						<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev" {{action 'dislike'}}>
+							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+							<span class="sr-only">Dislike</span>
+						</a>
+						<a class="btn btn-warning" href="/api/flight/search?startDate={{suggestion.departureDate}}&returnDate={{suggestion.returnDate}}&FromAirport={{suggestion.originAirport.code}}&&ToAirport={{suggestion.destinationAirport.code}}">Book</a>
+						<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next" {{action 'like'}}>
+							<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+							<span class="sr-only">Heart</span>
+						</a>
+					</div>
 				</div>
 				<!--end-->
 			</div>

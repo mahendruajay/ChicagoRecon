@@ -8,24 +8,61 @@
 			line-height: 1;
 			margin: 0 auto;
 		}
-		.item{
-			min-height: 290px;
-			max-height: 300px;
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+        .ember-application, .ember-view, .container-fluid, .row, .col-sm-12, .carousel, .carousel-inner, .item {
+			width: inherit;
+			height: inherit;
 		}
-		.glyphicon-remove{
-			color: #CC5E5C;
+        img .background {
+			height: 100%;
+			width: auto;
 		}
+		.glyphicon {
+			top: 85%;
+		}
+		.glyphicon-remove {
+			left: 20%;
+		}
+        .glyphicon-heart {
+            right: 20%;
+        }
 		.carousel-control .glyphicon-remove,
 		.carousel-control .glyphicon-heart,
 		.carousel-control .icon-next,
 		.carousel-control .icon-prev{
-			color: #83a976;;
+			color: #ffffff;;
 			display: inline-block;
-		margin-top: -10px;
 			opacity: 1;
-		position: absolute;
-		top: 130%;
-		z-index: 5;
+			position: absolute;
+			z-index: 5;
+            font-size: 36px;
+		}
+		.icon-next {
+			right: 10%;
+		}
+		.icon-prev {
+			left: 10%;
+		}
+		.carousel-caption {
+			top: 10%;
+			left: 10%;
+			text-align: left;
+		}
+		.btn-warning {
+			position: absolute;
+			top: 85%;
+			left: 45%;
+		}
+		h2 {
+			font-size: 3em;
+            margin-bottom: 0;
+		}
+		h4 {
+			font-size: 2em;
+			margin-top: 0;
 		}
 	</style>
 </head>
