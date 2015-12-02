@@ -34,10 +34,7 @@ public class FlightSuggestion {
     public String getDepartureDate() {
         return departureDate;
     }
-
-    public String getReturnDate() {
-        return returnDate;
-    }
+    
 
     public Airport getOriginAirport() {
         return originAirport;
@@ -61,5 +58,15 @@ public class FlightSuggestion {
 
     public String getDisplayReturnDate() {
         return displayReturnDate;
+    }
+
+    public String getReturnDate() {
+        return returnDate;
+    }
+
+    public String getDeeplinkURL() {
+        return "/api/flight/search?ToAirport=" + getDestinationAirport().getCode()
+                +"&FromAirport="+getOriginAirport().getCode()+"&startDate="+getDepartureDate()+
+                "&returnDate=" + getReturnDate();
     }
 }
