@@ -1,19 +1,17 @@
 package application.domain;
 
-import java.math.BigDecimal;
-
 /**
  * Created by rellison on 11/30/15.
  */
 public class FlightSuggestion {
-    private BigDecimal price;
+    private String price;
     private String departureDate;
     private Airport originAirport;
     private Airport destinationAirport;
     private DestinationDetails destinationDetails;
     private CruiseSuggestion cruiseSuggestion;
 
-    public FlightSuggestion(BigDecimal price, String departureDate, Airport originAirport, Airport destinationAirport, DestinationDetails destinationDetails, CruiseSuggestion cruiseSuggestion) {
+    public FlightSuggestion(String price, String departureDate, Airport originAirport, Airport destinationAirport, DestinationDetails destinationDetails, CruiseSuggestion cruiseSuggestion) {
         this.price = price;
         this.departureDate = departureDate;
         this.originAirport = originAirport;
@@ -22,7 +20,7 @@ public class FlightSuggestion {
         this.cruiseSuggestion = cruiseSuggestion;
     }
 
-    public BigDecimal getPrice() {
+    public String getPrice() {
         return price;
     }
 

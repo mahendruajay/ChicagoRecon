@@ -10,6 +10,10 @@ import java.util.Map;
  */
 @Component
 public class UserStore {
+
+    public UserStore() {
+    }
+
     Map<String, User> users = new HashMap<>();
 
     public Map<String, User> getUsers() {

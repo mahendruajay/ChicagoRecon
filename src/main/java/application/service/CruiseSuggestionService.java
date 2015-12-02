@@ -4,16 +4,15 @@ import application.domain.CruiseSuggestion;
 import application.util.CommonUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.joda.time.Days;
-import org.joda.time.LocalDate;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -26,23 +25,23 @@ import java.util.Map;
 public class CruiseSuggestionService {
     private static final String CRUISE_SEARCH_OPTIONS_URL = "https://www.expedia.com/cruiseSearchCriteria/getSearchOptions?earliest-departure-date=%s&latest-departure-date=%s&departure-port=%s&min-length=1&max-length=%d";
     private static final String CRUISE_SEARCH_DEEP_LINK_URL = "https://www.expedia.com/Cruise-Search?earliest-departure-date=%s&latest-departure-date=%s&departure-port=%s&min-length=1&max-length=%d";
-    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormat.forPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ISO_DATE;
 
     private static Map<String, String> airportCodeToDeparturePortMap = null;
 
-    public CruiseSuggestion getCruiseSuggestion(String city, LocalDate departureDate, LocalDate returnDate) {
+    public CruiseSuggestion getCruiseSuggestion(String destinationAirportCode, LocalDate departureDate, LocalDate returnDate) {
         LocalDate earliestDepartureDate = departureDate.plusDays(1);
         LocalDate latestDepartureDate = returnDate.minusDays(2);
-        String earliestDeparture = DATE_FORMAT.print(earliestDepartureDate);
-        String latestDeparture = DATE_FORMAT.print(latestDepartureDate);
+        String earliestDeparture = earliestDepartureDate.format(DATE_FORMAT);
+        String latestDeparture = latestDepartureDate.format(DATE_FORMAT);
 
         try {
-            String departurePort = getDeparturePort(city);
+            String departurePort = getDeparturePort(destinationAirportCode);
             if (departurePort == null) {
                 return null;
             }
 
-            int maxLength = Days.daysBetween(earliestDepartureDate, latestDepartureDate).getDays();
+            int maxLength = Period.between(earliestDepartureDate, latestDepartureDate).getDays();
 
             String searchOptionsUrl = String.format(Locale.ENGLISH, CRUISE_SEARCH_OPTIONS_URL, earliestDeparture, latestDeparture, departurePort, maxLength);
             String response = CommonUtils.readJsonFromUrl(searchOptionsUrl);
@@ -67,7 +66,7 @@ public class CruiseSuggestionService {
         return null;
     }
 
-    private String getDeparturePort(String city) throws IOException {
+    private String getDeparturePort(String destinationAirportCode) throws IOException {
         if (airportCodeToDeparturePortMap == null) {
             InputStream inputStream = this.getClass().getResourceAsStream("/data/cruisedepartureportmappings.json");
             ObjectMapper mapper = new ObjectMapper();
@@ -75,6 +74,6 @@ public class CruiseSuggestionService {
             });
         }
 
-        return airportCodeToDeparturePortMap.get(city);
+        return airportCodeToDeparturePortMap.get(destinationAirportCode);
     }
 }

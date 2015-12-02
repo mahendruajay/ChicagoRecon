@@ -1,10 +1,14 @@
 package application.service;
 
+import application.domain.Destination;
+import application.domain.Suggestion;
+import application.domain.UserStore;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +27,7 @@ public class DestinationSuggestionServiceTest {
     @Before
     public void setup(){
         service = new DestinationSuggestionService();
+        service.setUserStore(new UserStore());
     }
 
     @Test
@@ -65,8 +70,9 @@ public class DestinationSuggestionServiceTest {
         cities.add("London");
         cities.add("Hong Kong");
 
-        List<Integer> result = service.createUserAverage(cities);
-        result.forEach(r -> log.info(String.valueOf(r)));
+        Suggestion result = service.getNextDestination("someUser", "origin");
+
+        log.info(result.getCityName());
     }
 
 }
